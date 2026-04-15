@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            background-color: rgb(57, 132, 219);
+            border: none;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .mainFrame {
+            display: flex;
+            flex-direction: column;
+            height: 99.8vh;
+        }
+
+        .mainHeader {
+            background-color: rgb(57, 132, 219);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            border: 1px solid black;
+        }
+
+        div.introNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.introHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(131, 207, 255, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.introContent-split {
+            display: flex;
+            flex-direction: row;
+        }
+
+        div.introContent-split div {
+            width: 50%;
+        }
+
+        div.introContent-split h1 {
+            text-align: center;
+        }
+
+        div.introContent-split p {
+            text-align: justify;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        div.introContent-split ul {
+            text-align: justify;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        div.introNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.lobbyHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(187, 131, 255, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.lobbyContent-split {
+            display: flex;
+            flex-direction: row;
+        }
+
+        div.lobbyContent-split div {
+            width: 33.3%;
+        }
+
+        div.lobbyNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.gameHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(131, 241, 255, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.gameContent-split {
+            display: flex;
+            flex-direction: row;
+        }
+
+        div.gameContent-split div {
+            width: 50%;
+        }
+
+        div.gameDialogContent {
+            text-align: center;
+            border: 1px solid red;
+        }
+
+        div.gameNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.roundHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(255, 193, 131, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.roundNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.resultsHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(131, 255, 148, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.resultsNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        div.hallHead {
+            color: rgb(0, 0, 0);
+            background-color: rgba(247, 255, 131, 0.664);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.hallNext {
+            bottom: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainFrame">
+        <div class="mainHeader">
+            <h1>PokeTEC</h1>
+        </div>
+
+        <div class="mainContent">
+            <div class="introFrame">
+                <div class="introHead">
+                    <h2>Intro/Bienvenido</h2>
+                </div>
+
+                <div class="introContent-split">
+                    <div class="introContent">
+                        <h1>Instrucciones, etc etc</h1>
+                        <p>Esto es una prueba asdasdasdasdas</p>
+                        <p>Por que por que por que por que</p>
+                        <p>Y si pasa esto:</p>
+                        <ul>
+                            <li>Esto</li>
+                            <li>Esto</li>
+                            <li>Y esto tambien</li>
+                        </ul>
+                    </div>
+                    <div class="introContent">
+                        <h1>Imagenes y etc</h1>
+                        <h2>Tal tal tal tal tal tal tal tal tal</h2>
+                        <p>Pa pa pa pa pa pa pa pa pa pa pa pa</p>
+                    </div>
+                </div>
+
+                <div class="introNext">
+                    <button onclick="next(1)">Jugar</button>
+                    <button onclick="next(5)">Salon de la fama</button>
+                    <button onclick="next(-1)">Salir</button>
+                </div>
+
+            </div>
+
+            <div class="lobbyFrame" style="display: none;">
+                <div class="lobbyHead">
+                    <h2>Lobby</h2>
+                </div>
+
+                <div class="lobbyContent-split">
+                    <div class="lobbyContent">
+                        <h1>Selecciona esto y esto y esto y esto</h1>
+                    </div>
+
+                    <div class="lobbyContent">
+                        <h1>Nombre</h1>
+                        <input type="text">
+                    </div>
+
+                    <div class="lobbyContent">
+                        <h1>Equipo</h1>
+
+                        <label for="">Uno</label>
+                        <select name="" id="">
+                            <option value="">Una cosa</option>
+                            <option value="">Dos cosa</option>
+                            <option value="">Tres cosa</option>
+                            <option value="">Cuatro cosa</option>
+                            <option value="">Cinco cosa</option>
+                        </select>
+
+                        <label for="">Dos</label>
+                        <select name="" id="">
+                            <option value="">Una cosa</option>
+                            <option value="">Dos cosa</option>
+                            <option value="">Tres cosa</option>
+                            <option value="">Cuatro cosa</option>
+                            <option value="">Cinco cosa</option>
+                        </select>
+
+                        <label for="">Tres</label>
+                        <select name="" id="">
+                            <option value="">Una cosa</option>
+                            <option value="">Dos cosa</option>
+                            <option value="">Tres cosa</option>
+                            <option value="">Cuatro cosa</option>
+                            <option value="">Cinco cosa</option>
+                        </select>
+                    </div>
+
+                    <div class="lobbyContent">
+                        <h1>No se jajaj</h1>
+                    </div>
+                </div>
+
+                <div class="lobbyNext">
+                    <button onclick="next(3)">Jugar</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="gameFrame" style="display: none;">
+            <div class="gameHead">
+                <h2>Juego</h2>
+            </div>
+
+            <div class="gameContent">
+                <div class="gameContent-split">
+                    <div class="player1Content">
+                        <h1>Jugador 1</h1>
+                        <h2>[Pokemon]</h2>
+                        <h3>Vida: -----</h3>
+                        <h4>Etc</h4>
+                    </div>
+                    <div class="player2Content">
+                        <h1>Jugador 2</h1>
+                        <h2>[Pokemon]</h2>
+                        <h3>Vida: -----</h3>
+                        <h4>Etc</h4>
+                    </div>
+                </div>
+
+                <div class="gameNext">
+                    <button onclick="act(1)">Acciones</button>
+                </div>
+            </div>
+
+            <div class="gameDialog" style="display: none;">
+                <div class="gameDialogContent">
+                    <h1>Qué movimiento?</h1>
+                    <button onclick="act(0)">A</button>
+                    <button onclick="act(0)">B</button>
+                    <button onclick="next(3)">C</button>
+                    <button onclick="next(4)">D</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="roundFrame" style="display: none;">
+            <div class="roundHead">
+                <h1>Ronda X</h1>
+            </div>
+
+            <div class="roundContent">
+                <h1>Selecciona tu pokemon</h1>
+                <h2>etc etc</h2>
+
+                <select name="" id="">
+                    <option value="">Pokemon 1</option>
+                    <option value="">Pokemon 2</option>
+                    <option value="">Pokemon 3</option>
+                    <option value="">Pokemon 4</option>
+                    <option value="">Pokemon 5</option>
+                </select>
+            </div>
+
+            <div class="roundNext">
+                <button onclick="next(2)">Continuar</button>
+            </div>
+
+        </div>
+
+        <div class="resultsFrame" style="display: none;">
+            <div class="resultsHead">
+                <h1>Resultados</h1>
+            </div>
+
+            <div class="resultsContent">
+                <h1>Victoria</h1>
+                <h2>etc etc</h2>
+            </div>
+
+            <div class="resultsNext">
+                <button onclick="next(1)">Volver al lobby</button>
+                <button onclick="next(5)">Salón de la fama</button>
+                <button onclick="next(-1)">Salir</button>
+            </div>
+        </div>
+
+        <div class="hallFrame" style="display: none;">
+            <div class="hallHead">
+                <h1>Salón de la fama</h1>
+            </div>
+
+            <div class="hallContent">
+                <table>
+                    <thead>
+                        <th>Jugador</th>
+                        <th>Equipo</th>
+                        <th>Puntaje</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yo</td>
+                            <td>Equipo 1</td>
+                            <td>1000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hallNext">
+                <button onclick="next(0)">Volver</button>
+            </div>
+        </div>
+
+        <div class="exitFrame" style="display: none;">
+            <button onclick="next(0 )">Des-salir</button>
+        </div>
+    </div>
+
+    <script>
+        let intro = document.querySelector(".introFrame");
+        let lobby = document.querySelector(".lobbyFrame");
+        let game = document.querySelector(".gameFrame");
+        let hallOfFame = document.querySelector(".hallFrame");
+        let round = document.querySelector(".roundFrame");
+        let results = document.querySelector(".resultsFrame");
+        let dialog = document.querySelector(".gameDialog");
+        let exit = document.querySelector(".exitFrame");
+
+        let sections = [intro, lobby, game, hallOfFame, round, results];
+
+        function next(id) {
+            for (let i = 0; i < sections.length; i++) {
+                sections[i].style.display = "none";
+            }
+            switch (id) {
+                case -1:
+                    exit.style.display = "block";
+                    break;
+                case 0:
+                    intro.style.display = "block";
+                    break;
+                case 1:
+                    lobby.style.display = "block";
+                    break;
+                case 2:
+                    game.style.display = "block";
+                    break;
+                case 3:
+                    round.style.display = "block";
+                    break;
+                case 4:
+                    results.style.display = "block";
+                    break;
+                case 5:
+                    hallOfFame.style.display = "block";
+                    break;
+            }
+        }
+
+        function act(i) {
+            if (i == 1) {
+                dialog.style.display = "block";
+            } else {
+                dialog.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
