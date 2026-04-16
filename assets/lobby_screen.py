@@ -101,26 +101,26 @@ class LobbyFrame(StyledFrame):
         group_team_1 = tk.Frame(team_row1, bg=style.colors["default"])
         group_team_1.pack(side="right", padx=5)
         
-        self.img_team_1 = tk.PhotoImage(master=group_team_1, file="assets/img/pkm0.png", width=100, height=100)
+        self.img_team_1 = tk.PhotoImage(master=group_team_1, file="assets/img/pkm0.png").subsample(2, 2)
         self.img_team_1_label = tk.Label(group_team_1, image=self.img_team_1, bg=style.colors["default"])
         self.img_team_1_label.pack(pady=10, side="top")
 
         
         self.select_team_1 = ttk.Combobox(group_team_1, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_1.pack(pady=10, side="top")
-        self.select_team_1.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_1, self.img_team_1))
+        self.select_team_1.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_1, self.img_team_1_label))
         
         
         group_team_2 = tk.Frame(team_row1, bg=style.colors["default"])
         group_team_2.pack(side="left", padx=5)
         
-        self.img_team_2 = tk.PhotoImage(master=group_team_2, file="assets/img/pkm0.png", width=100, height=100)
+        self.img_team_2 = tk.PhotoImage(master=group_team_2, file="assets/img/pkm0.png").subsample(2, 2)
         self.img_team_2_label = tk.Label(group_team_2, image=self.img_team_2, bg=style.colors["default"])
         self.img_team_2_label.pack(pady=10, side="top")
         
         self.select_team_2 = ttk.Combobox(group_team_2, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_2.pack(pady=10, side="top")
-        self.select_team_2.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_2, self.img_team_2))
+        self.select_team_2.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_2, self.img_team_2_label))
         
         team_row2 = tk.Frame(self.form_team, bg=style.colors["default"])
         team_row2.pack()
@@ -128,13 +128,13 @@ class LobbyFrame(StyledFrame):
         group_team_3 = tk.Frame(team_row2, bg=style.colors["default"])
         group_team_3.pack(side="right", padx=5)
         
-        self.img_team_3 = tk.PhotoImage(master=group_team_3, file="assets/img/pkm0.png", width=100, height=100)
+        self.img_team_3 = tk.PhotoImage(master=group_team_3, file="assets/img/pkm0.png").subsample(2, 2)
         self.img_team_3_label = tk.Label(group_team_3, image=self.img_team_3, bg=style.colors["default"])
         self.img_team_3_label.pack(pady=10, side="top")
         
         self.select_team_3 = ttk.Combobox(group_team_3, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_3.pack(pady=10, side="top")
-        self.select_team_3.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_3, self.img_team_3))
+        self.select_team_3.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_3, self.img_team_3_label))
         
         self.team_next_btn = self.create_button1 (self.form_team, lang.lobbyScreen.next_button, self.checkTeam)
         self.team_next_btn.pack(pady=10)
@@ -207,7 +207,9 @@ class LobbyFrame(StyledFrame):
     
     def checkSelection(self, element, image):
         pkm = pokemon_list.getPokemon(element.get())
-        image.config(file=pkm.img)
+        new_img = tk.PhotoImage(file=pkm.img).subsample(2, 2)
+        image.config(image=new_img)
+        image.image = new_img
     
         
     def checkTeam(self):

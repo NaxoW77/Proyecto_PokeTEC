@@ -4,13 +4,235 @@ from assets.classes import Ataque
 class PokemonList:
     def __init__(self):
         self.pokemon1 = Pokemon(
-            "Pikachu", # Nombre
+            "Snorlax", # Nombre
+            120, # Vida
+            30, # Ataque
+            85, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Placaje", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Golpe Cuerpo", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Defensa Férrea (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Tambor (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm1.png" # Imagen
+            )
+        
+        self.pokemon2 = Pokemon(
+            "Squirtle", # Nombre
+            110, # Vida
+            35, # Ataque
+            75, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Burbuja", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Hidrobomba", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Refugio (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Foco Energía (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm2.png" # Imagen
+            )
+        
+        self.pokemon3 = Pokemon(
+            "Bulbasaur", # Nombre
+            105, # Vida
+            40, # Ataque
+            70, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Látigo Cepa", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Rayo Solar", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Síntesis (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Crecimiento (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm3.png" # Imagen
+        )
+        
+        self.pokemon4 = Pokemon(
+            "Mew", # Nombre
             100, # Vida
+            45, # Ataque
+            60, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Destructor", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Psíquico", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Barrera (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Maquinación (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm4.png" # Imagen
+        )
+        
+        self.pokemon5 = Pokemon(
+            "Eevee", # Nombre
+            95, # Vida
             50, # Ataque
             50, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Rayo", # Nombre
+                    "Ataque Rápido", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Derribo", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Encanto (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Refuerzo (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm5.png" # Imagen
+        )
+        
+        self.pokemon6 = Pokemon(
+            "Dragonite", # Nombre
+            100, # Vida
+            60, # Ataque
+            45, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Ciclón", # Nombre
+                    "ATK", # Tipo
+                    20, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Enfado", # Nombre
+                    "ATK", # Tipo
+                    50, #Potencia
+                    50, # Precisión
+                    ),
+                
+                Ataque(
+                    "Velo Sagrado (+DEF)", # Nombre
+                    "DEF", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    ),
+                
+                Ataque(
+                    "Danza Dragón (+ATK)", # Nombre
+                    "DMG", # Tipo
+                    10, # Potencia
+                    100, # Precisión
+                    )
+            ],
+            "assets/img/pkm6.png" # Imagen
+        )
+        
+        self.pokemon7 = Pokemon(
+            "Pikachu", # Nombre
+            90, # Vida
+            65, # Ataque
+            40, # Defensa
+            [ # Moveset
+                Ataque( # Ataque 1
+                    "Impactrueno", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
@@ -19,243 +241,21 @@ class PokemonList:
                 Ataque(
                     "Trueno", # Nombre
                     "ATK", # Tipo
-                    30, #Potencia
+                    50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Estática", # Nombre
+                    "Pantalla Luz (+DEF)", # Nombre
                     "DEF", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Carga", # Nombre
+                    "Carga (+ATK)", # Nombre
                     "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm1.png" # Imagen
-            )
-        
-        self.pokemon2 = Pokemon(
-            "Pokemon2", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm2.png" # Imagen
-            )
-        
-        self.pokemon3 = Pokemon(
-            "Pokemon3", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm3.png" # Imagen
-        )
-        
-        self.pokemon4 = Pokemon(
-            "Pokemon4", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm4.png" # Imagen
-        )
-        
-        self.pokemon5 = Pokemon(
-            "Pokemon5", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm5.png" # Imagen
-        )
-        
-        self.pokemon6 = Pokemon(
-            "Pokemon6", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    )
-            ],
-            "assets/img/pkm6.png" # Imagen
-        )
-        
-        self.pokemon7 = Pokemon(
-            "Pokemon7", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
-            [ # Moveset
-                Ataque( # Ataque 1
-                    "Ataque1", # Nombre
-                    "ATK", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Ataque2", # Nombre
-                    "ATK", # Tipo
-                    30, #Potencia
-                    50, # Precisión
-                    ),
-                
-                Ataque(
-                    "Defensa1", # Nombre
-                    "DEF", # Tipo
-                    20, # Potencia
-                    100, # Precisión
-                    ),
-                
-                Ataque(
-                    "Daño1", # Nombre
-                    "DMG", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     )
             ],
@@ -263,36 +263,36 @@ class PokemonList:
         )
         
         self.pokemon8 = Pokemon(
-            "Pokemon8", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
+            "Charizard", # Nombre
+            95, # Vida
+            75, # Ataque
+            35, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Ataque1", # Nombre
+                    "Ascuas", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Ataque2", # Nombre
+                    "Llamarada", # Nombre
                     "ATK", # Tipo
-                    30, #Potencia
+                    50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Defensa1", # Nombre
+                    "Pantalla Humo (+DEF)", # Nombre
                     "DEF", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Daño1", # Nombre
+                    "Danza Espada (+ATK)", # Nombre
                     "DMG", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     )
             ],
@@ -300,36 +300,36 @@ class PokemonList:
         )
         
         self.pokemon9 = Pokemon(
-            "Pokemon9", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
+            "Gengar", # Nombre
+            85, # Vida
+            85, # Ataque
+            25, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Ataque1", # Nombre
+                    "Lengüetazo", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Ataque2", # Nombre
+                    "Come Sueños", # Nombre
                     "ATK", # Tipo
-                    30, #Potencia
+                    50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Defensa1", # Nombre
+                    "Mismo Destino (+DEF)", # Nombre
                     "DEF", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Daño1", # Nombre
+                    "Maldición (+ATK)", # Nombre
                     "DMG", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     )
             ],
@@ -337,36 +337,36 @@ class PokemonList:
         )
         
         self.pokemon10 = Pokemon(
-            "Pokemon10", # Nombre
-            100, # Vida
-            50, # Ataque
-            50, # Defensa
+            "Mewtwo", # Nombre
+            90, # Vida
+            95, # Ataque
+            20, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Ataque1", # Nombre
+                    "Confusión", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Ataque2", # Nombre
+                    "Onda Mental", # Nombre
                     "ATK", # Tipo
-                    30, #Potencia
+                    50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Defensa1", # Nombre
+                    "Amnesia (+DEF)", # Nombre
                     "DEF", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Daño1", # Nombre
+                    "Paz Mental (+ATK)", # Nombre
                     "DMG", # Tipo
-                    20, # Potencia
+                    10, # Potencia
                     100, # Precisión
                 )
             ],

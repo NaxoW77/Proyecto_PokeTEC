@@ -52,14 +52,14 @@ class RoundFrame(StyledFrame):
         self.player_score_label = self.create_text1(leftGroup, f"Puntaje: {lang.roundScreen.default}", 0, 5, 400)
         self.player_score_label.pack(pady=5)
         
-        self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png")
+        self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
         self.pokemon_img_label = tk.Label(rightGroup, image=self.pokemon_img, bg=style.colors["default"])
         self.pokemon_img_label.pack(pady=5)
         
         self.pokemon_combo = ttk.Combobox(rightGroup, values=pokemon_list.getNames(), font=style.a16, state="readonly", width=10)
         self.pokemon_combo.pack(pady=10)
         
-        self.pokemon_combo.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.pokemon_combo, self.pokemon_img))
+        self.pokemon_combo.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.pokemon_combo, self.pokemon_img_label))
         
         # Botones
         btn_frame = tk.Frame(self, bg=style.colors["default"])
@@ -79,7 +79,7 @@ class RoundFrame(StyledFrame):
             return
         
         self.hide(self.error_txt)
-        self.controller.player.setCurrentPokemon(pokemon_list.getPokemon(selected))
+        self.controller.player.setCurrentPokemon(self.controller.player.team[self.pokemon_combo.current()])
         self.controller.rival.setCurrentPokemon(self.controller.rival.team[random.randint(0, len(self.controller.rival.team) - 1)])
         self.controller.show_frame("GameFrame")
     
@@ -91,7 +91,9 @@ class RoundFrame(StyledFrame):
         
     def checkSelection(self, element, image):
         pkm = pokemon_list.getPokemon(element.get())
-        image.config(file=pkm.img)
+        new_img = tk.PhotoImage(file=pkm.img).subsample(2, 2)
+        image.config(image=new_img)
+        image.image = new_img
         
     def update_display(self):
         player = self.controller.player
@@ -102,6 +104,10 @@ class RoundFrame(StyledFrame):
         self.player_name_label.config(text=f"{lang.gameScreen.player_label}: {player.getName()}")
         self.player_score_label.config(text=f"Puntaje: {player.getScore()}")
         
+        self.pokemon_combo.set("")
+        self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
+        self.pokemon_img_label.config(image=self.pokemon_img)
+        
         team = player.getTeam()
         
         teamNames = [pokemon.name for pokemon in team]
@@ -109,6 +115,10 @@ class RoundFrame(StyledFrame):
         
         for pokemon in self.controller.player.team:
                 pokemon.current_hp = pokemon.hp
+                pokemon.current_attack = pokemon.attack
+                pokemon.current_defense = pokemon.defense
         
         for pokemon in self.controller.rival.team:
                 pokemon.current_hp = pokemon.hp
+                pokemon.current_attack = pokemon.attack
+                pokemon.current_defense = pokemon.defense

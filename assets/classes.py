@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import random as random
 
 # Importar estilos
 from assets.styles import Style
@@ -64,20 +65,42 @@ class Pokemon:
         self.current_attack = attack
         self.current_defense = defense
         
-    def takeDamage(self, type, damage):
-        if type == "ATK":
-            self.current_hp = self.current_hp - damage
+    def takeDamage(self, atkPower, atkChance, pkmPower):
+        if random.randint(1, 100) <= atkChance:
+            total = (atkPower + pkmPower)-self.current_defense
+            if total <= 0:
+                total = 0
+                return "se defendió del ataque."
+            self.current_hp-=total
+            if self.current_hp <= 0:
+                self.current_hp = 0
+            return total
+        else:
+            return "evitó el ataque."
+    
+    def takeStat(self, type, val):
+        statLimit = 30 # 4 veces 5
+        
+        if type == "DMG":
+            self.current_attack = self.current_attack + val
+            if self.current_attack > self.attack+statLimit:
+                self.current_attack = self.attack+statLimit
+                return "el ataque no subió más."
+            return val
         elif type == "DEF":
-            self.current_attack = self.current_attack - damage
-        elif type == "DMG":
-            self.current_defense = self.current_defense - damage
+            self.current_defense = self.current_defense + val
+            if self.current_defense > self.defense+statLimit:
+                self.current_defense = self.defense+statLimit
+                return "la defensa no subió más."
+            return val
     
 class Ataque:
-    def __init__(self, name="", type="", power=50, accuracy=100):
+    def __init__(self, name="", type="", power=50, accuracy=100, auto=False):
         self.name = name
         self.type = type
         self.power = power
         self.accuracy = accuracy
+        self.auto = auto
     
     def takeDamage(self, damage):
         self.hp = max(0, self.hp - damage)
@@ -87,23 +110,6 @@ class Ataque:
     
     def isAlive(self):
         return self.hp > 0
-
-class Game:
-    def __init__(self, player1, player2):
-        self.player1 = player1
-        self.player2 = player2
-        self.round = 1
-        self.max_rounds = 3
-    
-    def isGameOver(self):
-        return len(self.player1.team) == 0 or len(self.player2.team) == 0
-    
-    def nextRound(self):
-        self.round += 1
-
-class HallOfFame:
-    def __init__(self, games=[]):
-        self.games = games
 
 class StyledFrame(tk.Frame):
     def __init__(self, parent, controller, bg_color):
