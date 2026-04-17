@@ -25,6 +25,7 @@ class Main:
         
         self.player = Player()
         self.rival = Player()
+        self.round_number = 1
         
         #Configuración general
         self.root = root

@@ -106,7 +106,7 @@ class GameFrame(StyledFrame):
         self.btn_actions = self.create_button1(btn_container, lang.gameScreen.actions_button, self.toggle_actions)
         self.btn_actions.pack(side="left", padx=5)
         
-        self.btn_continue = self.create_button1(btn_container, "Continuar", lambda: self.controller.show_frame("RoundFrame"))
+        self.btn_continue = self.create_button1(btn_container, "Continuar", self.next_round)
         self.btn_continue.pack(side="left", padx=5)
     
     
@@ -123,6 +123,68 @@ class GameFrame(StyledFrame):
         else:
             self.actions_frame.pack(side="bottom", pady=5, padx=20, fill="x")
 
+    def next_round(self):
+        self.controller.round_number += 1
+        self.controller.show_frame("RoundFrame")
+
+    def animate_attack(self, label, callback=None):
+        """Jump right and back animation for attack hits."""
+        original_x = label.winfo_x()
+        original_y = label.winfo_y()
+        
+        label.place(x=original_x, y=original_y, width=label.winfo_width(), height=label.winfo_height())
+        
+        def jump_forward():
+            label.place(x=original_x + 30, y=original_y, width=label.winfo_width(), height=label.winfo_height())
+            label.after(150, jump_back)
+        
+        def jump_back():
+            label.place_forget()
+            if callback:
+                self.after(100, callback)
+        
+        label.after(200, jump_forward)
+
+    def animate_dodge(self, label, callback=None):
+        """Jump up animation for dodged attacks."""
+        original_x = label.winfo_x()
+        original_y = label.winfo_y()
+        
+        label.place(x=original_x, y=original_y, width=label.winfo_width(), height=label.winfo_height())
+        
+        def jump_up():
+            label.place(x=original_x, y=original_y - 40, width=label.winfo_width(), height=label.winfo_height())
+            label.after(150, jump_down)
+        
+        def jump_down():
+            label.place_forget()
+            if callback:
+                self.after(100, callback)
+        
+        label.after(200, jump_up)
+
+    def animate_stat_buff(self, label, callback=None):
+        """Go up, down, reset animation for stat increases."""
+        original_x = label.winfo_x()
+        original_y = label.winfo_y()
+        
+        label.place(x=original_x, y=original_y, width=label.winfo_width(), height=label.winfo_height())
+        
+        def go_up():
+            label.place(x=original_x, y=original_y - 25, width=label.winfo_width(), height=label.winfo_height())
+            label.after(200, go_down)
+        
+        def go_down():
+            label.place(x=original_x, y=original_y + 25, width=label.winfo_width(), height=label.winfo_height())
+            label.after(200, go_reset)
+        
+        def go_reset():
+            label.place_forget()
+            if callback:
+                self.after(100, callback)
+        
+        label.after(150, go_up)
+
         
     
     def select_action(self, action):
@@ -136,52 +198,56 @@ class GameFrame(StyledFrame):
         
         self.battle_log.config(text=f"Jugador usó: {player_pkm.moveset[action].name}")
         
-        result = None
-        if player_pkm.moveset[action].type == "ATK":
-            result = rival_pkm.takeDamage(player_pkm.moveset[action].power, player_pkm.moveset[action].accuracy, player_pkm.current_attack)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"Tu {player_pkm.name} hizo {result} de daño.")
+        def handle_action_result():
+            result = None
+            if player_pkm.moveset[action].type == "ATK":
+                result = rival_pkm.takeDamage(player_pkm.moveset[action].power, player_pkm.moveset[action].accuracy, player_pkm.current_attack)
+                if isinstance(result, int):
+                    self.battle_log2.config(text=f"Tu {player_pkm.name} hizo {result} de daño.")
+                    self.animate_dodge(self.p2_pokemon_img_label, handle_rival_reaction)
+                else:
+                    self.battle_log2.config(text=f"Pero el {rival_pkm.name} rival {result}")
+                    self.animate_dodge(self.p2_pokemon_img_label, handle_rival_reaction)
             else:
-                self.battle_log2.config(text=f"Pero el {rival_pkm.name} rival {result}")
-        else:
-            typeName = ""
-            if player_pkm.moveset[action].type == "DMG":
-                typeName = "daño"
-            else:
-                typeName = "defensa"
-            result = player_pkm.takeStat(player_pkm.moveset[action].type, player_pkm.moveset[action].power)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"Tu {player_pkm.name} aumentó su {typeName} en {result}.")
-            else:
-                self.battle_log2.config(text=f"Pero {result}")
+                typeName = ""
+                if player_pkm.moveset[action].type == "DMG":
+                    typeName = "daño"
+                else:
+                    typeName = "defensa"
+                result = player_pkm.takeStat(player_pkm.moveset[action].type, player_pkm.moveset[action].power)
+                if isinstance(result, int):
+                    self.battle_log2.config(text=f"Tu {player_pkm.name} aumentó su {typeName} en {result}.")
+                    self.animate_stat_buff(self.p1_pokemon_img_label, handle_rival_reaction)
+                else:
+                    self.battle_log2.config(text=f"Pero {result}")
+                    self.animate_stat_buff(self.p1_pokemon_img_label, handle_rival_reaction)
+                        
+            self.update_stats()
+        
+        def handle_rival_reaction():
+            if rival_pkm.current_hp <= 0:
+                player.setScore(player.getScore() + 1)
+                player.addPokemon(rival_pkm)
+                rival.removePokemon(rival_pkm)
+                if rival.team == []:
+                    self.controller.show_frame("ResultsFrame")
+                    return
                 
-        self.update_stats()
-            
-        if rival_pkm.current_hp <= 0:
-            player.setScore(player.getScore() + 1)
-            player.addPokemon(rival_pkm)
-            rival.removePokemon(rival_pkm)
-            if rival.team == []:
-                self.controller.show_frame("ResultsFrame")
+                self.battle_log.config(text=f"Has derrotado al {rival_pkm.name} rival.")
+                self.battle_log2.config(text=f"Ahora tienes a {rival_pkm.name} en tu equipo.")
+                
+                self.hide(self.btn_actions)
+                self.show(self.btn_continue)
                 return
             
-            self.battle_log.config(text=f"Has derrotado al {rival_pkm.name} rival.")
-            self.battle_log2.config(text=f"Ahora tienes a {rival_pkm.name} en tu equipo.")
-            
-            self.hide(self.btn_actions)
-            self.show(self.btn_continue)
-            return
+            self.after(3000, lambda: (
+                self.battle_log.config(text="El rival está pensando..."),
+                self.battle_log2.config(text=""),
+                self.after(random.randint(1500, 3000), lambda: self.rival_action())
+            ))
         
-    
-        
-        self.after(3000, lambda: (
-            self.battle_log.config(text="El rival está pensando..."),
-            self.battle_log2.config(text=""),
-            self.after(random.randint(1500, 3000), lambda: self.rival_action())
-        ))
-        
-    
-    
+        self.animate_attack(self.p1_pokemon_img_label, handle_action_result)
+
     def rival_action(self):
         player = self.controller.player
         rival = self.controller.rival
@@ -191,46 +257,53 @@ class GameFrame(StyledFrame):
         action = rival_pkm.moveset[random.randint(0, len(rival_pkm.moveset) - 1)]
         self.battle_log.config(text=f"Rival usó: {action.name}")
         
-        result = None
-        if action.type == "ATK":
-            result = player_pkm.takeDamage(action.power, action.accuracy, rival_pkm.current_attack)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"El {rival_pkm.name} rival hizo {result} de daño.")
+        def handle_rival_result():
+            result = None
+            if action.type == "ATK":
+                result = player_pkm.takeDamage(action.power, action.accuracy, rival_pkm.current_attack)
+                if isinstance(result, int):
+                    self.battle_log2.config(text=f"El {rival_pkm.name} rival hizo {result} de daño.")
+                    self.animate_dodge(self.p1_pokemon_img_label, handle_player_reaction)
+                else:
+                    self.battle_log2.config(text=f"Pero tu {player_pkm.name} {result}")
+                    self.animate_dodge(self.p1_pokemon_img_label, handle_player_reaction)
             else:
-                self.battle_log2.config(text=f"Pero tu {player_pkm.name} {result}")
-        else:
-            result = rival_pkm.takeStat(action.type, action.power)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"{rival_pkm.name} aumentó su {action.type} en {result}.")
-            else:
-                self.battle_log2.config(text=f"Pero {result}")
-        
-        self.update_stats()
-        
-        if player_pkm.current_hp <= 0:
-            rival.setScore(rival.getScore() + 1)
-            rival.addPokemon(player_pkm)
-            player.removePokemon(player_pkm)
+                result = rival_pkm.takeStat(action.type, action.power)
+                if isinstance(result, int):
+                    self.battle_log2.config(text=f"{rival_pkm.name} aumentó su {action.type} en {result}.")
+                    self.animate_stat_buff(self.p2_pokemon_img_label, handle_player_reaction)
+                else:
+                    self.battle_log2.config(text=f"Pero {result}")
+                    self.animate_stat_buff(self.p2_pokemon_img_label, handle_player_reaction)
             
-            if player.team == []:
-                self.controller.show_frame("ResultsFrame")
+            self.update_stats()
+        
+        def handle_player_reaction():
+            if player_pkm.current_hp <= 0:
+                rival.setScore(rival.getScore() + 1)
+                rival.addPokemon(player_pkm)
+                player.removePokemon(player_pkm)
+                
+                if player.team == []:
+                    self.controller.show_frame("ResultsFrame")
+                    return
+                
+                
+                self.battle_log.config(text=f"Has sido derrotado por tu rival.")
+                self.battle_log2.config(text=f"Te han quitado a {player_pkm.name} de tu equipo.")
+                
+                self.hide(self.btn_actions)
+                self.show(self.btn_continue)
                 return
             
-            
-            self.battle_log.config(text=f"Has sido derrotado por tu rival.")
-            self.battle_log2.config(text=f"Te han quitado a {player_pkm.name} de tu equipo.")
-            
-            self.hide(self.btn_actions)
-            self.show(self.btn_continue)
-            return
+            self.after(3000, lambda: (
+                self.battle_log.config(text="Tu turno...\nSelecciona una acción abajo."),
+                self.battle_log2.config(text=""),
+                self.btn_actions.config(state="normal")
+            ))
         
-        self.after(3000, lambda: (
-            self.battle_log.config(text="Tu turno...\nSelecciona una acción abajo."),
-            self.battle_log2.config(text=""),
-            self.btn_actions.config(state="normal")
-        ))
-    
-    
+        self.animate_attack(self.p2_pokemon_img_label, handle_rival_result)
+
     def update_stats(self):
         self.p1_health.config(text=f"{lang.gameScreen.health_label}: {self.controller.player.getCurrentPokemon().current_hp}/{self.controller.player.getCurrentPokemon().hp}")
         self.p2_health.config(text=f"{lang.gameScreen.health_label}: {self.controller.rival.getCurrentPokemon().current_hp}/{self.controller.rival.getCurrentPokemon().hp}")

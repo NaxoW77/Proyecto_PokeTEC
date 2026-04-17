@@ -16,7 +16,8 @@ class Style:
             "lobby_bg": "#bb83ff",
             "game_bg": "#83f1ff",
             "round_bg": "#ffc183",
-            "results_bg": "#83ff94",
+            "results_bg_win": "#83ff94",
+            "results_bg_loss": "#ff8383",
             "hall_of_fame_bg": "#f7ff83",
             "exit": "#ff0000",
         }

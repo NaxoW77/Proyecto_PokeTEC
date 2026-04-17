@@ -30,7 +30,8 @@ class RoundFrame(StyledFrame):
         body.pack(pady=20, padx=20)
         
         # Título
-        self.create_title(body, lang.roundScreen.title).pack(pady=10)
+        self.round_title = self.create_title(body, lang.roundScreen.title)
+        self.round_title.pack(pady=10)
         
         # Descripción
         self.create_text1(body, lang.roundScreen.description, 10, 5, 600).pack(pady=10)
@@ -112,6 +113,7 @@ class RoundFrame(StyledFrame):
         
         teamNames = [pokemon.name for pokemon in team]
         self.pokemon_combo.config(values=teamNames)
+        self.round_title.config(text=f"Ronda {self.controller.round_number}")
         
         for pokemon in self.controller.player.team:
                 pokemon.current_hp = pokemon.hp

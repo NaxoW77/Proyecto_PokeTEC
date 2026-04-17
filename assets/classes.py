@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import random as random
+from copy import deepcopy
 
 # Importar estilos
 from assets.styles import Style
@@ -93,6 +94,16 @@ class Pokemon:
                 self.current_defense = self.defense+statLimit
                 return "la defensa no subió más."
             return val
+
+    def clone(self):
+        return Pokemon(
+            self.name,
+            self.hp,
+            self.attack,
+            self.defense,
+            deepcopy(self.moveset),
+            self.img
+        )
     
 class Ataque:
     def __init__(self, name="", type="", power=50, accuracy=100, auto=False):

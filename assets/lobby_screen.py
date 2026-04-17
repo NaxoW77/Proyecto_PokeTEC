@@ -98,41 +98,41 @@ class LobbyFrame(StyledFrame):
         team_row1 = tk.Frame(self.form_team, bg=style.colors["default"])
         team_row1.pack()
         
-        group_team_1 = tk.Frame(team_row1, bg=style.colors["default"])
-        group_team_1.pack(side="right", padx=5)
+        self.group_team_1 = tk.Frame(team_row1, bg=style.colors["default"])
+        self.group_team_1.pack(side="left", padx=5)
         
-        self.img_team_1 = tk.PhotoImage(master=group_team_1, file="assets/img/pkm0.png").subsample(2, 2)
-        self.img_team_1_label = tk.Label(group_team_1, image=self.img_team_1, bg=style.colors["default"])
+        self.img_team_1 = tk.PhotoImage(master=self.group_team_1, file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_1_label = tk.Label(self.group_team_1, image=self.img_team_1, bg=style.colors["default"])
         self.img_team_1_label.pack(pady=10, side="top")
 
         
-        self.select_team_1 = ttk.Combobox(group_team_1, values=pokemon_list.getNames(), font=style.a16, state="readonly")
+        self.select_team_1 = ttk.Combobox(self.group_team_1, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_1.pack(pady=10, side="top")
         self.select_team_1.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_1, self.img_team_1_label))
         
         
-        group_team_2 = tk.Frame(team_row1, bg=style.colors["default"])
-        group_team_2.pack(side="left", padx=5)
+        self.group_team_2 = tk.Frame(team_row1, bg=style.colors["default"])
+        self.group_team_2.pack(side="right", padx=5)
         
-        self.img_team_2 = tk.PhotoImage(master=group_team_2, file="assets/img/pkm0.png").subsample(2, 2)
-        self.img_team_2_label = tk.Label(group_team_2, image=self.img_team_2, bg=style.colors["default"])
+        self.img_team_2 = tk.PhotoImage(master=self.group_team_2, file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_2_label = tk.Label(self.group_team_2, image=self.img_team_2, bg=style.colors["default"])
         self.img_team_2_label.pack(pady=10, side="top")
         
-        self.select_team_2 = ttk.Combobox(group_team_2, values=pokemon_list.getNames(), font=style.a16, state="readonly")
+        self.select_team_2 = ttk.Combobox(self.group_team_2, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_2.pack(pady=10, side="top")
         self.select_team_2.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_2, self.img_team_2_label))
         
         team_row2 = tk.Frame(self.form_team, bg=style.colors["default"])
         team_row2.pack()
         
-        group_team_3 = tk.Frame(team_row2, bg=style.colors["default"])
-        group_team_3.pack(side="right", padx=5)
+        self.group_team_3 = tk.Frame(team_row2, bg=style.colors["default"])
+        self.group_team_3.pack(side="right", padx=5)
         
-        self.img_team_3 = tk.PhotoImage(master=group_team_3, file="assets/img/pkm0.png").subsample(2, 2)
-        self.img_team_3_label = tk.Label(group_team_3, image=self.img_team_3, bg=style.colors["default"])
+        self.img_team_3 = tk.PhotoImage(master=self.group_team_3, file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_3_label = tk.Label(self.group_team_3, image=self.img_team_3, bg=style.colors["default"])
         self.img_team_3_label.pack(pady=10, side="top")
         
-        self.select_team_3 = ttk.Combobox(group_team_3, values=pokemon_list.getNames(), font=style.a16, state="readonly")
+        self.select_team_3 = ttk.Combobox(self.group_team_3, values=pokemon_list.getNames(), font=style.a16, state="readonly")
         self.select_team_3.pack(pady=10, side="top")
         self.select_team_3.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_3, self.img_team_3_label))
         
@@ -227,9 +227,17 @@ class LobbyFrame(StyledFrame):
             self.show(self.team_error_txt)
             return
         
-        self.controller.player.setTeam([pokemon_list.getPokemon(pokemon1), pokemon_list.getPokemon(pokemon2), pokemon_list.getPokemon(pokemon3)])
+        self.controller.player.setTeam([
+            pokemon_list.getPokemon(pokemon1),
+            pokemon_list.getPokemon(pokemon2),
+            pokemon_list.getPokemon(pokemon3)
+        ])
         
-        self.controller.rival.setTeam([pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)], pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)], pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)]])
+        self.controller.rival.setTeam([
+            pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)].clone(),
+            pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)].clone(),
+            pokemon_list.list[random.randint(0, len(pokemon_list.list) - 1)].clone()
+        ])
         
         self.hide(self.team_error_txt)
         self.hide(self.form_team)
@@ -239,6 +247,47 @@ class LobbyFrame(StyledFrame):
         self.name_next_btn.config(state="normal")
         
         self.controller.show_frame("RoundFrame")
+        
+    def update_display(self):
+        self.controller.player.setName("")
+        self.controller.player.setAvatar("assets/img/char_01.png")
+        self.controller.player.setTeam([])
+        self.controller.player.setCurrentPokemon(None)
+        self.controller.player.setScore(0)
+
+        self.controller.rival.setName("")
+        self.controller.rival.setAvatar("assets/img/char_11.png")
+        self.controller.rival.setTeam([])
+        self.controller.rival.setCurrentPokemon(None)
+        self.controller.rival.setScore(0)
+
+        self.controller.round_number = 1
+        
+        self.name_entry.delete(0, tk.END)
+        self.name_error_txt.config(text="")
+        
+        self.avatarCounter = 0
+        self.avatar_img = tk.PhotoImage(master=self.form_avatar, file=self.avatarList[self.avatarCounter])
+        self.avatar_img_label.config(image=self.avatar_img)
+        self.team_error_txt.config(text="")
+
+        self.imgBackBtn.config(state="disabled")
+        self.imgNextBtn.config(state="disabled")
+        self.avatar_next_btn.config(state="disabled")
+        self.team_next_btn.config(state="disabled")
+        
+        self.hide(self.form_avatar)
+        self.hide(self.form_team)
+        
+        self.select_team_1.set("")
+        self.select_team_2.set("")
+        self.select_team_3.set("")
+        self.img_team_1 = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_1_label.config(image=self.img_team_1)
+        self.img_team_2 = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_2_label.config(image=self.img_team_2)
+        self.img_team_3 = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
+        self.img_team_3_label.config(image=self.img_team_3)
         
         
     def hide(self, elem):

@@ -389,7 +389,7 @@ class PokemonList:
     def getPokemon(self, name):
         for pokemon in self.list:
             if pokemon.name == name:
-                return pokemon
+                return pokemon.clone()
         
     def getNames(self):
         return [
