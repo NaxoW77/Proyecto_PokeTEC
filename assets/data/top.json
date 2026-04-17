@@ -1,14 +1,22 @@
 [
     {
-        "name": "kkkk",
-        "avatar": "assets/img/char_02.png",
-        "score": 4,
+        "name": "aaa",
+        "avatar": "assets/img/char_01.png",
+        "score": 0,
         "team": [
+            "Bulbasaur",
+            "Mew",
+            "Mewtwo"
+        ]
+    },
+    {
+        "name": "asdad",
+        "avatar": "assets/img/char_01.png",
+        "score": 0,
+        "team": [
+            "Snorlax",
             "Gengar",
-            "Mewtwo",
-            "Charizard",
-            "Eevee",
-            "Gengar"
+            "Pikachu"
         ]
     }
 ]

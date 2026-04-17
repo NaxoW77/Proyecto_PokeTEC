@@ -35,25 +35,22 @@ class ResultsFrame(StyledFrame):
         result_body = tk.Frame(body, bg=style.colors["default"])
         result_body.pack(fill="both", expand=True)
 
-        left_panel = tk.Frame(result_body, bg=style.colors["default"])
-        left_panel.pack(side="left", fill="y", padx=20, pady=10)
+        center_panel = tk.Frame(result_body, bg=style.colors["default"])
+        center_panel.pack(fill="both", expand=True, padx=20, pady=10)
 
         self.player_img = tk.PhotoImage(file="assets/img/char_01.png").subsample(2, 2)
-        self.player_img_label = tk.Label(left_panel, image=self.player_img, bg=style.colors["default"])
+        self.player_img_label = tk.Label(center_panel, image=self.player_img, bg=style.colors["default"])
         self.player_img_label.pack(pady=10)
 
-        self.player_name_label = self.create_text1(left_panel, f"{lang.gameScreen.player_label}: Jugador", 0, 5, 250)
+        self.player_name_label = self.create_text1(center_panel, f"{lang.gameScreen.player_label}: Jugador", 0, 5, 250)
         self.player_name_label.pack(pady=5)
-        self.player_score_label = self.create_text1(left_panel, "Puntaje: 0", 0, 5, 250)
+        self.player_score_label = self.create_text1(center_panel, "Puntaje: 0", 0, 5, 250)
         self.player_score_label.pack(pady=5)
-        self.player_team_label = self.create_text1(left_panel, f"{lang.hallOfFameScreen.team_column}: ---", 0, 5, 250)
+        self.player_team_label = self.create_text1(center_panel, f"{lang.hallOfFameScreen.team_column}: ---", 0, 5, 250)
         self.player_team_label.pack(pady=5)
 
-        right_panel = tk.Frame(result_body, bg=style.colors["default"])
-        right_panel.pack(side="left", fill="both", expand=True, padx=20, pady=10)
-
-        self.result_description = self.create_text2(right_panel, "", 10, 10, 500, "left")
-        self.result_description.pack(anchor="nw", pady=10)
+        self.result_description = self.create_text2(center_panel, "", 10, 10, 500, "center")
+        self.result_description.pack(pady=20)
 
         btn_container = tk.Frame(body, bg=style.colors["default"])
         btn_container.pack(side="bottom", pady=20)
