@@ -145,27 +145,30 @@ class Lang:
             self.default_action = "A luchar... \nEscoge una acción abajo."
             self.default_action_turn = "Tu turno...\nSelecciona una acción abajo."
             
-            # Nombres de movimientos
-            self.stat_dmg = "daño"
-            self.stat_def = "defensa"
+            # --- Movimientos
             
-            # Resultados de movimientos
-            
+            # Etiqueda de daño
             self.pkm_attack = ["hizo", "de daño."]
             
+            # Resultados de daño
             self.pkm_action = "usó:"
             self.pkm_action_fail = "Pero"
-            
-            self.pkm_stat = ["aumentó su", "en"]
-            self.pkm_stat_fail = ["Pero su", "no subió más."]
-            
             self.pkm_avoid = "esquivó el ataque."
             self.pkm_defend = "se defendió del ataque."
             
-            # -- Jugador
+            # Nombres de estadísticas
+            self.stat_dmg = "daño"
+            self.stat_def = "defensa"
+            
+            # Etiqueta de estadísticas
+            self.pkm_stat = ["aumentó su", "en"]
+            self.pkm_stat_fail = ["Pero su", "no subió más."]
+            
+            
+            # Etiquetas del jugador
             self.player_pref = "Tu"
             
-            # -- Rival
+            # Etiquetas del rival
             self.rival_pref = "El"
             self.rival_name = "rival"
             self.rival_thinking = "El rival esta pensando..."
@@ -182,38 +185,52 @@ class Lang:
             # Mensaje en blanco
             self.default = "---"
     
+    
+    # Subclase para la pantalla de resultados
     class ResultsScreen:
         def __init__(self, super):
+            
+            # Título
             self.title = "Resultados"
             
+            # Etiquetas
             self.player_label = "Jugador"
             self.score_label = "Puntaje"
             self.team_label = "Equipo"
             
+            # Mensaje de victoria
             self.victory = "¡VICTORIA!"
             self.victory_msg = "¡Felicidades! Tu resultado se guardará en el Salón de la Fama."
             
+            # Mensaje de derrota
             self.defeat = "¡DERROTA!"
             self.defeat_msg = "Has perdido. Intenta de nuevo para entrar al Salón de la Fama."
             
-
-            
+            # Sección de botones            
             self.exit_button = "Salir"
             self.hall_of_fame_button = "Salón de la Fama"
             
             # Mensaje en blanco
             self.default = "---"
     
+    
+    # Subclase para la pantalla del salón de la fama
     class HallOfFameScreen:
         def __init__(self, super):
-            self.title = "Salón de la Fama"
-            self.player_column = "Jugador"
             
+            # Títulos
+            self.title = "Salón de la Fama"
             self.subtitle = "Top 10 jugadores"
             
+            # Etiquetas de columnas
+            self.player_column = "Jugador"
             self.team_column = "Equipo"
             self.score_column = "Puntaje"
+            
+            # Sección de botones
             self.back_button = "Volver"
+            
+            # Si no hay registros
             self.no_records = "No hay registros aún."
             
             # Mensaje en blanco
