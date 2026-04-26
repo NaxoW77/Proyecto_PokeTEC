@@ -35,7 +35,7 @@ class GameFrame(StyledFrame):
         self.p1_img_label = tk.Label(p1_frame, image=self.p1_img, bg=style.colors["default"])
         self.p1_img_label.pack(pady=5, padx=10, side="left")
         
-        self.p1_title = self.create_title(p1_frame, f"lang.gameScreen.player_label: {lang.gameScreen.default}")
+        self.p1_title = self.create_title(p1_frame, f"{lang.gameScreen.player_label}: {lang.gameScreen.default}")
         self.p1_title.pack(pady=5, padx=5, side="left", fill="x")
         self.p1_title.config(wraplength=150)
         
@@ -86,7 +86,7 @@ class GameFrame(StyledFrame):
         battle_frame.pack(fill="both", expand=True, pady=3, padx=20)
         
         self.create_title(battle_frame, lang.gameScreen.title).pack(pady=0)
-        self.battle_log = self.create_text2(battle_frame, "A luchar... \nEscoge una acción abajo.", 10, 10, 600, "center")
+        self.battle_log = self.create_text2(battle_frame, f"{lang.gameScreen.default_action}", 10, 10, 600, "center")
         self.battle_log.pack(pady=2, fill="both", expand=True)
         
         self.battle_log2 = self.create_text2(battle_frame, "", 10, 10, 600, "center")
@@ -118,7 +118,7 @@ class GameFrame(StyledFrame):
         self.btn_actions = self.create_button1(btn_container, lang.gameScreen.actions_button, self.toggle_actions)
         self.btn_actions.pack(side="left", padx=5)
         
-        self.btn_continue = self.create_button1(btn_container, "Continuar", self.next_round)
+        self.btn_continue = self.create_button1(btn_container, f"{lang.gameScreen.continue_button}", self.next_round)
         self.btn_continue.pack(side="left", padx=5)
     
     
@@ -150,7 +150,7 @@ class GameFrame(StyledFrame):
         self.btn_actions.config(state="disabled")
         self.toggle_actions()
         
-        self.battle_log.config(text=f"Jugador usó: {player_pkm.moveset[action].name}")
+        self.battle_log.config(text=f"{lang.gameScreen.player_action}: {player_pkm.moveset[action].name}")
         
         result = None
         if player_pkm.moveset[action].type == "ATK":
@@ -163,10 +163,16 @@ class GameFrame(StyledFrame):
             self.after(75, animate_atk_1)
             
             result = rival_pkm.takeDamage(player_pkm.moveset[action].power, player_pkm.moveset[action].accuracy, player_pkm.current_attack)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"Tu {player_pkm.name} hizo {result} de daño.")
+            if result > 0:
+                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_attack[0]} {player_pkm.name} {lang.gameScreen.player_pkm_attack[1]} {result} {lang.gameScreen.player_pkm_attack[2]}")
             else:
-                self.battle_log2.config(text=f"Pero el {rival_pkm.name} rival {result}")
+                
+                if result == 0:
+                    result = lang.gameScreen.pkm_defend
+                else:
+                    result = lang.gameScreen.pkm_avoid
+                
+                self.battle_log2.config(text=f"{lang.gameScreen.rival_pkm_avoid[0]} {rival_pkm.name} {lang.gameScreen.rival_pkm_avoid[1]} {result}")
         else:
             def animate_act_1():
                 original_x = self.p1_pokemon_img_label.winfo_x()
@@ -177,14 +183,14 @@ class GameFrame(StyledFrame):
             self.after(75, animate_act_1)
             typeName = ""
             if player_pkm.moveset[action].type == "DMG":
-                typeName = "daño"
+                typeName = lang.gameScreen.stat_dmg
             else:
-                typeName = "defensa"
+                typeName = lang.gameScreen.stat_def
             result = player_pkm.takeStat(player_pkm.moveset[action].type, player_pkm.moveset[action].power)
             if isinstance(result, int):
-                self.battle_log2.config(text=f"Tu {player_pkm.name} aumentó su {typeName} en {result}.")
+                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat[0]} {player_pkm.name} {lang.gameScreen.player_pkm_stat[1]} {typeName} {lang.gameScreen.player_pkm_stat[2]} {result}")
             else:
-                self.battle_log2.config(text=f"Pero {result}")
+                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat_none} {result}")
                 
         self.update_stats()
             
@@ -196,8 +202,8 @@ class GameFrame(StyledFrame):
                 self.controller.show_frame("ResultsFrame")
                 return
             
-            self.battle_log.config(text=f"Has derrotado al {rival_pkm.name} rival.")
-            self.battle_log2.config(text=f"Ahora tienes a {rival_pkm.name} en tu equipo.")
+            self.battle_log.config(text=f"{lang.gameScreen.player_win[0]} {rival_pkm.name} {lang.gameScreen.player_win[1]}")
+            self.battle_log2.config(text=f"{lang.gameScreen.player_win_pkm[0]} {rival_pkm.name} {lang.gameScreen.player_win_pkm[1]}")
             
             self.hide(self.btn_actions)
             self.show(self.btn_continue)
@@ -206,7 +212,7 @@ class GameFrame(StyledFrame):
     
         
         self.after(3000, lambda: (
-            self.battle_log.config(text="El rival está pensando..."),
+            self.battle_log.config(text=lang.gameScreen.rival_thinking),
             self.battle_log2.config(text=""),
             self.after(random.randint(1500, 3000), lambda: self.rival_action())
         ))
@@ -220,7 +226,7 @@ class GameFrame(StyledFrame):
         rival_pkm = rival.getCurrentPokemon()
         
         action = rival_pkm.moveset[random.randint(0, len(rival_pkm.moveset) - 1)]
-        self.battle_log.config(text=f"Rival usó: {action.name}")
+        self.battle_log.config(text=f" {action.name}")
         
         result = None
         if action.type == "ATK":
@@ -232,10 +238,15 @@ class GameFrame(StyledFrame):
             self.after(75, animate_atk_2)
             
             result = player_pkm.takeDamage(action.power, action.accuracy, rival_pkm.current_attack)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"El {rival_pkm.name} rival hizo {result} de daño.")
+            if result > 0:
+                self.battle_log2.config(text=f"{lang.gameScreen.rival_pkm_attack[0]} {rival_pkm.name} {lang.gameScreen.rival_pkm_attack[1]} {result} {lang.gameScreen.rival_pkm_attack[2]}")
             else:
-                self.battle_log2.config(text=f"Pero tu {player_pkm.name} {result}")
+                if result == 0:
+                    result = lang.gameScreen.pkm_defend
+                else:
+                    result = lang.gameScreen.pkm_avoid
+                    
+                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_avoid} {player_pkm.name} {result}")
         else:
             def animate_act_2():
                 original_x = self.p2_pokemon_img_label.winfo_x()
@@ -247,9 +258,9 @@ class GameFrame(StyledFrame):
             
             result = rival_pkm.takeStat(action.type, action.power)
             if isinstance(result, int):
-                self.battle_log2.config(text=f"{rival_pkm.name} aumentó su {action.type} en {result}.")
+                self.battle_log2.config(text=f"{rival_pkm.name} {lang.gameScreen.player_pkm_stat[1]} {action.type} {lang.gameScreen.player_pkm_stat[2]} {result}.")
             else:
-                self.battle_log2.config(text=f"Pero {result}")
+                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat_none} {result}")
         
         self.update_stats()
         
@@ -263,15 +274,15 @@ class GameFrame(StyledFrame):
                 return
             
             
-            self.battle_log.config(text=f"Has sido derrotado por tu rival.")
-            self.battle_log2.config(text=f"Te han quitado a {player_pkm.name} de tu equipo.")
+            self.battle_log.config(text=lang.gameScreen.rival_win)
+            self.battle_log2.config(text=f"{lang.gameScreen.rival_win_pkm[0]} {player_pkm.name} {lang.gameScreen.rival_win_pkm[1]}")
             
             self.hide(self.btn_actions)
             self.show(self.btn_continue)
             return
         
         self.after(3000, lambda: (
-            self.battle_log.config(text="Tu turno...\nSelecciona una acción abajo."),
+            self.battle_log.config(text=lang.gameScreen.default_action_turn),
             self.battle_log2.config(text=""),
             self.btn_actions.config(state="normal")
         ))
@@ -283,7 +294,7 @@ class GameFrame(StyledFrame):
     
     def update_display(self):
         self.btn_actions.config(state="normal")
-        self.battle_log.config(text="Tu turno...\nSelecciona una acción abajo.")
+        self.battle_log.config(text=lang.gameScreen.default_action_turn)
         self.battle_log2.config(text="")
         
         self.show(self.btn_actions)

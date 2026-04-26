@@ -42,14 +42,16 @@ class ResultsFrame(StyledFrame):
         self.player_img_label = tk.Label(center_panel, image=self.player_img, bg=style.colors["default"])
         self.player_img_label.pack(pady=10)
 
-        self.player_name_label = self.create_text1(center_panel, f"{lang.gameScreen.player_label}: Jugador", 0, 5, 250)
-        self.player_name_label.pack(pady=5)
-        self.player_score_label = self.create_text1(center_panel, "Puntaje: 0", 0, 5, 250)
-        self.player_score_label.pack(pady=5)
-        self.player_team_label = self.create_text1(center_panel, f"{lang.hallOfFameScreen.team_column}: ---", 0, 5, 250)
+        self.player_name_label = self.create_text1(center_panel, f"{lang.gameScreen.player_label}: {lang.resultsScreen.player}", 0, 5, 250)
+        self.player_name_label.pack(pady=3)
+        
+        self.player_score_label = self.create_text1(center_panel, f"{lang.resultsScreen.score_label} 0", 0, 1, 250)
+        self.player_score_label.pack(pady=1)
+        
+        self.player_team_label = self.create_text2(center_panel, f"{lang.hallOfFameScreen.team_column}: ---", 0, 5, 250)
         self.player_team_label.pack(pady=5)
 
-        self.result_description = self.create_text2(center_panel, "", 10, 10, 500, "center")
+        self.result_description = self.create_text2(center_panel, "", 10, 1, 500, "center")
         self.result_description.pack(pady=20)
 
         btn_container = tk.Frame(body, bg=style.colors["default"])
@@ -61,7 +63,7 @@ class ResultsFrame(StyledFrame):
     def update_display(self):
         player = self.controller.player
         player_avatar = player.getAvatar() or "assets/img/char_01.png"
-        player_name = player.getName() or "Jugador"
+        player_name = player.getName() or lang.resultsScreen.player
         player_score = player.getScore()
         player_team = player.getTeam()
 
@@ -77,16 +79,16 @@ class ResultsFrame(StyledFrame):
         if player_team == []:
             self.result_title.config(text=lang.resultsScreen.defeat)
             self.banner.config(bg=style.colors["results_bg_loss"])
-            description = "Has perdido. Intenta de nuevo para entrar al Salón de la Fama."
+            description = lang.resultsScreen.defeat_msg
         else:
             self.result_title.config(text=lang.resultsScreen.victory)
             self.banner.config(bg=style.colors["results_bg_win"])
-            description = "¡Felicidades! Tu resultado se guardará en el Salón de la Fama."
+            description = lang.resultsScreen.victory_msg
             self.save_top_record(player)
 
         team_names = ", ".join([pokemon.name for pokemon in player_team]) if player_team else "---"
         self.player_name_label.config(text=f"{lang.gameScreen.player_label}: {player_name}")
-        self.player_score_label.config(text=f"Puntaje: {player_score}")
+        self.player_score_label.config(text=f"{lang.resultsScreen.score_label} {player_score}")
         self.player_team_label.config(text=f"{lang.hallOfFameScreen.team_column}: {team_names}")
         self.result_description.config(text=description)
 

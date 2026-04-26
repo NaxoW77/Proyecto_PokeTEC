@@ -103,7 +103,7 @@ class RoundFrame(StyledFrame):
         self.player_img_label.config(image=self.player_img)
         
         self.player_name_label.config(text=f"{lang.gameScreen.player_label}: {player.getName()}")
-        self.player_score_label.config(text=f"Puntaje: {player.getScore()}")
+        self.player_score_label.config(text=f"{lang.roundScreen.score_label} {player.getScore()}")
         
         self.pokemon_combo.set("")
         self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
@@ -113,7 +113,7 @@ class RoundFrame(StyledFrame):
         
         teamNames = [pokemon.name for pokemon in team]
         self.pokemon_combo.config(values=teamNames)
-        self.round_title.config(text=f"Ronda {self.controller.round_number}")
+        self.round_title.config(text=f"{lang.roundScreen.title} {self.controller.round_number}")
         
         for pokemon in self.controller.player.team:
                 pokemon.current_hp = pokemon.hp

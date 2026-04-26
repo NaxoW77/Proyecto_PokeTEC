@@ -3,6 +3,10 @@ from tkinter import ttk
 import random as random
 from copy import deepcopy
 
+# Importar textos
+from assets.lang import Lang
+lang = Lang()
+
 # Importar estilos
 from assets.styles import Style
 style = Style()
@@ -71,13 +75,13 @@ class Pokemon:
             total = (atkPower + pkmPower)-self.current_defense
             if total <= 0:
                 total = 0
-                return "se defendió del ataque."
+                return 0
             self.current_hp-=total
             if self.current_hp <= 0:
                 self.current_hp = 0
             return total
         else:
-            return "evitó el ataque."
+            return -1
     
     def takeStat(self, type, val):
         statLimit = 30 # 4 veces 5

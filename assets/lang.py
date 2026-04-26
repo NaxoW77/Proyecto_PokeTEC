@@ -30,6 +30,9 @@ class Lang:
                 "\nPiensa bien tus movimientos en combate, planea tu estrategia y toma decisiones inteligentes para ganar.",
             )
             
+            self.play_button = "Jugar"
+            self.halloffame_button = "Salón de la fama"
+            
         # Función para concatenar texto
         def concat(self, *args):
             return "\n".join(args)
@@ -55,28 +58,73 @@ class Lang:
     
     class RoundScreen:
         def __init__(self, super):
-            self.title = "Ronda 1"
+            self.title = "Ronda"
             self.description = "Elige con cuál Pokémon quieres pelear esta ronda."
             self.select_pokemon = "Selecciona tu pokemon"
             self.continue_button = "Continuar"
             self.error_select = "Debes seleccionar un Pokémon."
+            self.score_label = "Puntaje:"
             self.default = "---"
+    
+    
     
     class GameScreen:
         def __init__(self, super):
             self.title = "Combate"
             self.actions_prompt = "Escoge un movimiento."
             self.actions_button = "Acciones"
+            
             self.player_label = "Jugador"
             self.pokemon_label = "Pokémon"
             self.health_label = "Vida"
+            
+            self.default_action = "A luchar... \nEscoge una acción abajo."
+            self.default_action_turn = "Tu turno...\nSelecciona una acción abajo."
+            self.continue_button = "Continuar"
+            
+            self.player_action = "Jugador usó"
+            
+            self.player_pkm_attack = ["Tu", "hizo", "de daño."]
+            self.rival_pkm_avoid = ["Pero el", "rival"]
+            
+            self.stat_dmg = "daño"
+            self.stat_def = "defensa"
+            
+            self.player_pkm_stat = ["Tu", "aumentó su", "en"]
+            self.player_pkm_stat_none = "Pero"
+            
+            self.pkm_avoid = "esquivó el ataque."
+            self.pkm_defend = "se defendió del ataque."
+            
+            self.player_win = ["Has derrotado al", "rival."]
+            self.player_win_pkm = ["Ahora tienes a", "en tu equipo."]
+            
+            
+            self.rival_thinking = "El rival esta pensando..."
+            
+            self.rival_action = "El rival usó"
+            self.rival_pkm_attack = ["El", "rival hizo", "de daño."]
+            self.player_pkm_avoid = "Pero tu"
+            
+            self.rival_win = "Has sido derrotado por tu rival."
+            self.rival_win_pkm = ["Te han quitado a", "de tu equipo."]
+            
             self.default = "---"
     
     class ResultsScreen:
         def __init__(self, super):
             self.title = "Resultados"
+            
+            self.player = "Jugador"
+            
             self.victory = "¡VICTORIA!"
+            self.victory_msg = "¡Felicidades! Tu resultado se guardará en el Salón de la Fama."
+            
             self.defeat = "¡DERROTA!"
+            self.defeat_msg = "Has perdido. Intenta de nuevo para entrar al Salón de la Fama."
+            
+            self.score_label = "Puntaje:"
+            
             self.exit_button = "Salir"
             self.hall_of_fame_button = "Salón de la Fama"
     
@@ -84,6 +132,9 @@ class Lang:
         def __init__(self, super):
             self.title = "Salón de la Fama"
             self.player_column = "Jugador"
+            
+            self.subtitle = ["Top", "jugadores"]
+            
             self.team_column = "Equipo"
             self.score_column = "Puntaje"
             self.back_button = "Volver"

@@ -71,7 +71,7 @@ class HallOfFameFrame(StyledFrame):
             self.create_text1(self.records_list_frame, lang.hallOfFameScreen.no_records, 10, 10, 700).pack(pady=20)
             return
 
-        self.summary_label.config(text=f"Top {min(len(records), 10)} jugadores")
+        self.summary_label.config(text=f"{lang.hallOfFameScreen.subtitle[0]} {min(len(records), 10)} {lang.hallOfFameScreen.subtitle[1]}")
 
         for index, record in enumerate(records, start=1):
             row = tk.Frame(self.records_list_frame, bg=style.colors["default"], relief="solid", borderwidth=1)

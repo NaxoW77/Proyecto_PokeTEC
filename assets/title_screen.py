@@ -69,5 +69,5 @@ class IntroFrame(StyledFrame):
         
         btn_group = tk.Frame(btn_container, width=200, bg=style.colors["default"])
         btn_group.pack(side="bottom", padx=5)
-        self.create_button1(btn_group,"Jugar", lambda: controller.show_frame("LobbyFrame")).pack(side="left", padx=5)
-        self.create_button1(btn_group,"Salón de la Fama", lambda: controller.show_frame("HallOfFameFrame")).pack(side="right", padx=5)
+        self.create_button1(btn_group,lang.titleScreen.play_button, lambda: controller.show_frame("LobbyFrame")).pack(side="left", padx=5)
+        self.create_button1(btn_group,lang.titleScreen.halloffame_button, lambda: controller.show_frame("HallOfFameFrame")).pack(side="right", padx=5)

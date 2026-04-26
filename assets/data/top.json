@@ -1,0 +1,14 @@
+[
+    {
+        "name": "asd",
+        "avatar": "assets/img/char_02.png",
+        "score": 4,
+        "team": [
+            "Charizard",
+            "Gengar",
+            "Charizard",
+            "Mewtwo",
+            "Dragonite"
+        ]
+    }
+]
