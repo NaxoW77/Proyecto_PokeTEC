@@ -1,9 +1,11 @@
+
 # --- Clases ---
 
 # Estas son diferentes clases para instanciar objetos,
 # para luego utilizarlos en el juego y globalizar
 # sus funciones y propiedades
 
+# Imports necesarios
 import tkinter as tk
 from tkinter import ttk
 import random as random
@@ -29,6 +31,7 @@ class Player:
         self.team = team if team is not None else [] # Equipo
         self.score = 0 # Puntaje
         self.current_pokemon = None # Pokemon seleccionado
+        
         
     # --- Setters y getters
     
@@ -227,6 +230,7 @@ class StyledFrame(tk.Frame):
             wraplength=wraplength # Ancho máximo
             )
     
+    # Método para crear botones
     def create_button1(self, parent, text, command):
         return tk.Button(
             parent, # Ubicación
@@ -240,3 +244,13 @@ class StyledFrame(tk.Frame):
             cursor="hand2", # Cursor
             command=command # Función
             )
+        
+        
+    # Método para ocultar un elemento
+    def hide(self, elem):
+        elem.pack_forget()
+    
+    
+    # Método para mostrar un elemento
+    def show(self, elem):
+        elem.pack(fill="both", expand=True)

@@ -1,6 +1,14 @@
+
+# --- Pantalla de resultados ---
+
+# Aquí se muestra el resultado de la partida
+# Si el jugador gana, se muestra un banner de victoria
+# y se añade al salón de la fama,
+# si pierde, se muestra un banner de derrota.
+
+# Imports necesarios
 import os
 import json
-
 from assets.classes import tk
 from assets.classes import ttk
 from assets.classes import StyledFrame

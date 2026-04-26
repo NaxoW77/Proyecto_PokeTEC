@@ -1,3 +1,11 @@
+
+# --- Código principal ---
+
+# Este es el código encargado de llamar a todas
+# las secciones, definir clases y modelos,
+# y empezar el juego.
+
+# Imports necesarios
 from assets.classes import tk
 from assets.classes import ttk
 
@@ -11,7 +19,7 @@ from assets.halloffame_screen import HallOfFameFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang() # Se trae toda la clase
 
 # Importar estilos
 from assets.styles import Style
@@ -20,14 +28,20 @@ style = Style()
 # Importar modelo del jugador
 from assets.classes import Player
 
+
+# Se define la clase principal
 class Main:
     def __init__(self, root):
         
+        # Se instancian los modelos a usar
         self.player = Player()
         self.rival = Player()
+        self.rival_name = "Rival"  # Se le da un nombre por defecto al rival
+        
+        # Se inicia el contador de rondas
         self.round_number = 1
         
-        #Configuración general
+        # Configuración general de la ventana
         self.root = root
         self.root.title(lang.title)
         width = 800
@@ -38,6 +52,7 @@ class Main:
         self.root.configure(bg=style.colors["default"])
 
         # --- Header ---
+        
         # Base del header
         self.main_header = tk.Frame(
             root,
@@ -86,7 +101,7 @@ class Main:
             pady=5,
             relief="groove",
             cursor="hand2", 
-            command=lambda: self.root.destroy()
+            command=lambda: self.root.destroy() # Función para detener el programa
             )
         btn_exit.pack(
             side="right", 
@@ -113,15 +128,15 @@ class Main:
         # Llamada a todos los frames
         self.screens = {}
         for screen in (IntroFrame, LobbyFrame, RoundFrame, GameFrame, ResultsFrame, HallOfFameFrame):
-            page_name = screen.__name__
-            screenFrame = screen(parent=self.container, controller=self)
-            self.screens[page_name] = screenFrame
+            page_name = screen.__name__ # Se les coloca el nombre de la clase
+            screenFrame = screen(parent=self.container, controller=self) # Se pasa el controlador principal a cada frame
+            self.screens[page_name] = screenFrame # Se guardan los frames en una lista de fácil acceso
             screenFrame.grid(row=0, column=0, sticky="nsew")
 
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
-        # Primer frame
+        # Se muestra el primer frame
         self.show_frame("IntroFrame")
     
         # --- Body ---
@@ -152,11 +167,12 @@ class Main:
         
     # Función para cambiar de frame
     def show_frame(self, page_name):
-        frame = self.screens[page_name]
-        frame.tkraise()
-        # Call update method if it exists
+        frame = self.screens[page_name] # Se busca el frame en la lista
+        frame.tkraise() # Función para mostrar el frame como tal
+        
+        # Se actualizan los datos en el frame, si es necesario
         if hasattr(frame, 'update_display'):
-            frame.update_display()
+            frame.update_display() # Método interno
 
 # Main
 if __name__ == "__main__":

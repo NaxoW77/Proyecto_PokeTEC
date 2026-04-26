@@ -1,7 +1,8 @@
+
 # --- Archivo de idiomas ---
+
 # Aquí se guardan todos los textos del juego para
 # poder utilizarlos en cualquier parte del proyecto
-
 
 # Se define la clase principal
 # Por cada clase hay una subclase para cada pantalla

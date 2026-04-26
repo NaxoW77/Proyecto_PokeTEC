@@ -1,9 +1,9 @@
+
 # --- Estilos ---
 
 # Estas son diferentes clases estáticas donde
 # se pueden configurar y llamar diferentes propiedades
 # fácilmente a través de todo el proyecto
-
 
 # Se define la clase principal
 class Style:

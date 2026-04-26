@@ -1,7 +1,8 @@
+
 # --- Lista de pokémon ---
+
 # Estos son los pokemon predefinidos que
 # se pueden seleccionar dentro del juego
-
 
 # Importamos las definiciones de cada objeto
 from assets.classes import Pokemon
