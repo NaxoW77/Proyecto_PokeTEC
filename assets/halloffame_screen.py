@@ -7,7 +7,7 @@ from assets.classes import StyledFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().hallOfFameScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -29,7 +29,7 @@ class HallOfFameFrame(StyledFrame):
         body = tk.Frame(self, bg=style.colors["default"])
         body.pack(fill="both", expand=True, pady=20, padx=20)
 
-        self.create_title(body, lang.hallOfFameScreen.title).pack(pady=10)
+        self.create_title(body, lang.title).pack(pady=10)
         self.summary_label = self.create_text1(body, "", 10, 5, 700)
         self.summary_label.pack(pady=5)
 
@@ -55,7 +55,7 @@ class HallOfFameFrame(StyledFrame):
             lambda event: self.records_canvas.itemconfig(self.list_window, width=event.width)
         )
 
-        self.create_button1(body, lang.hallOfFameScreen.back_button, lambda: controller.show_frame("IntroFrame")).pack(pady=20)
+        self.create_button1(body, lang.back_button, lambda: controller.show_frame("IntroFrame")).pack(pady=20)
 
     def update_display(self):
         self.display_records()
@@ -67,11 +67,11 @@ class HallOfFameFrame(StyledFrame):
             child.destroy()
 
         if not records:
-            self.summary_label.config(text=lang.hallOfFameScreen.no_records)
-            self.create_text1(self.records_list_frame, lang.hallOfFameScreen.no_records, 10, 10, 700).pack(pady=20)
+            self.summary_label.config(text=lang.no_records)
+            self.create_text1(self.records_list_frame, lang.default, 10, 10, 700).pack(pady=20)
             return
 
-        self.summary_label.config(text=f"{lang.hallOfFameScreen.subtitle[0]} {min(len(records), 10)} {lang.hallOfFameScreen.subtitle[1]}")
+        self.summary_label.config(text=f"{lang.subtitle}")
 
         for index, record in enumerate(records, start=1):
             row = tk.Frame(self.records_list_frame, bg=style.colors["default"], relief="solid", borderwidth=1)
@@ -95,7 +95,7 @@ class HallOfFameFrame(StyledFrame):
             team_text = ", ".join(team) if team else "---"
             self.create_text2(
                 details_frame,
-                f"{lang.hallOfFameScreen.score_column}: {score}\n{lang.hallOfFameScreen.team_column}: {team_text}",
+                f"{lang.score_column}: {score}\n{lang.team_column}: {team_text}",
                 0,
                 0,
                 700,

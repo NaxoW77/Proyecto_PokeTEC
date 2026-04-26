@@ -6,7 +6,7 @@ import random as random
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().gameScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -21,9 +21,13 @@ class GameFrame(StyledFrame):
         banner.pack(fill="x")
         # --- Banner ---
         
+        # --- Title ---
+        self.create_title(self, lang.title).pack(pady=15)    
+        # --- Title ---    
+        
         # --- Player frames ---
         players_frame = tk.Frame(self, bg=style.colors["default"])
-        players_frame.pack(fill="both", expand=False, pady=20, padx=20)
+        players_frame.pack(fill="both", expand=False, pady=10, padx=20)
         players_frame.grid_columnconfigure(0, weight=1, uniform="cols")
         players_frame.grid_columnconfigure(1, weight=1, uniform="cols")
         
@@ -35,7 +39,7 @@ class GameFrame(StyledFrame):
         self.p1_img_label = tk.Label(p1_frame, image=self.p1_img, bg=style.colors["default"])
         self.p1_img_label.pack(pady=5, padx=10, side="left")
         
-        self.p1_title = self.create_title(p1_frame, f"{lang.gameScreen.player_label}: {lang.gameScreen.default}")
+        self.p1_title = self.create_title(p1_frame, f"{lang.player_label}: {lang.default}")
         self.p1_title.pack(pady=5, padx=5, side="left", fill="x")
         self.p1_title.config(wraplength=150)
         
@@ -49,9 +53,9 @@ class GameFrame(StyledFrame):
         self.p1_pokemon_img_label = tk.Label(pokemon1_img_frame, image=self.p1_pokemon_img, bg=style.colors["default"])
         self.p1_pokemon_img_label.pack()
         
-        self.p1_pokemon = self.create_text1(pokemon1_frame, f"{lang.gameScreen.pokemon_label}: {lang.gameScreen.default}", 15, 3, 300)
+        self.p1_pokemon = self.create_text1(pokemon1_frame, f"{lang.pokemon_label}: {lang.default}", 15, 3, 300)
         self.p1_pokemon.pack()
-        self.p1_health = self.create_text1(pokemon1_frame, f"{lang.gameScreen.health_label}: {lang.gameScreen.default}", 15, 3, 300)
+        self.p1_health = self.create_text1(pokemon1_frame, f"{lang.health_label}: {lang.default}", 15, 3, 300)
         self.p1_health.pack()
         
         # Player 2
@@ -62,7 +66,7 @@ class GameFrame(StyledFrame):
         self.p2_img_label = tk.Label(p2_frame, image=self.p2_img, bg=style.colors["default"])
         self.p2_img_label.pack(pady=5, padx=5, side="right")
         
-        self.p2_title = self.create_title(p2_frame, f"{lang.gameScreen.player_label}: {lang.gameScreen.default}")
+        self.p2_title = self.create_title(p2_frame, f"{lang.player_label}: {lang.default}")
         self.p2_title.pack(pady=5, padx=5, side="right", fill="x")
         self.p2_title.config(wraplength=150)
         
@@ -76,49 +80,49 @@ class GameFrame(StyledFrame):
         self.p2_pokemon_img_label = tk.Label(pokemon2_img_frame, image=self.p2_pokemon_img, bg=style.colors["default"])
         self.p2_pokemon_img_label.pack(pady=5, padx=15)
         
-        self.p2_pokemon = self.create_text1(pokemon2_frame, f"{lang.gameScreen.pokemon_label}: {lang.gameScreen.default}", 15, 3, 300)
+        self.p2_pokemon = self.create_text1(pokemon2_frame, f"{lang.pokemon_label}: {lang.default}", 15, 3, 300)
         self.p2_pokemon.pack()
-        self.p2_health = self.create_text1(pokemon2_frame, f"{lang.gameScreen.health_label}: {lang.gameScreen.default}", 15, 3, 300)
+        self.p2_health = self.create_text1(pokemon2_frame, f"{lang.health_label}: {lang.default}", 15, 3, 300)
         self.p2_health.pack()
         
         # --- Battle Frame ---
+        
         battle_frame = tk.Frame(self, bg=style.colors["default"])
-        battle_frame.pack(fill="both", expand=True, pady=3, padx=20)
+        battle_frame.pack(fill="x", expand=True, pady=3, padx=20)
         
-        self.create_title(battle_frame, lang.gameScreen.title).pack(pady=0)
-        self.battle_log = self.create_text2(battle_frame, f"{lang.gameScreen.default_action}", 10, 10, 600, "center")
-        self.battle_log.pack(pady=2, fill="both", expand=True)
+        self.battle_log = self.create_text1(battle_frame, f"{lang.default_action}", 10, 5, 600)
+        self.battle_log.pack(pady=5, fill="x", expand=True)
         
-        self.battle_log2 = self.create_text2(battle_frame, "", 10, 10, 600, "center")
-        self.battle_log2.pack(pady=2, fill="both", expand=True)
+        self.battle_log2 = self.create_text2(battle_frame, "", 10, 3, 600, "center")
+        self.battle_log2.pack(pady=3, fill="x", expand=True)
         
         # --- Action Dialog ---
         self.actions_frame = tk.Frame(self, bg="white", relief="solid", borderwidth=2)
-        self.create_text1(self.actions_frame, lang.gameScreen.actions_prompt, 0, 10, 400).pack(pady=5)
+        self.create_text1(self.actions_frame, lang.actions_prompt, 0, 10, 400).pack(pady=5)
         
         actions_btn_frame = tk.Frame(self.actions_frame, bg="white")
         actions_btn_frame.pack(pady=10)
         
-        self.actionBtn1 = self.create_button1(actions_btn_frame, f"A: {lang.gameScreen.default}", lambda: self.select_action(0))
+        self.actionBtn1 = self.create_button1(actions_btn_frame, f"A: {lang.default}", lambda: self.select_action(0))
         self.actionBtn1.pack(side="left", padx=5)
         
-        self.actionBtn2 = self.create_button1(actions_btn_frame, f"B: {lang.gameScreen.default}", lambda: self.select_action(1))
+        self.actionBtn2 = self.create_button1(actions_btn_frame, f"B: {lang.default}", lambda: self.select_action(1))
         self.actionBtn2.pack(side="left", padx=5)
         
-        self.actionBtn3 = self.create_button1(actions_btn_frame, f"C: {lang.gameScreen.default}", lambda: self.select_action(2))
+        self.actionBtn3 = self.create_button1(actions_btn_frame, f"C: {lang.default}", lambda: self.select_action(2))
         self.actionBtn3.pack(side="left", padx=5)
         
-        self.actionBtn4 = self.create_button1(actions_btn_frame, f"D: {lang.gameScreen.default}", lambda: self.select_action(3))
+        self.actionBtn4 = self.create_button1(actions_btn_frame, f"D: {lang.default}", lambda: self.select_action(3))
         self.actionBtn4.pack(side="left", padx=5)
         
         # --- Bottom Buttons ---
         btn_container = tk.Frame(self, bg=style.colors["default"])
         btn_container.pack(side="bottom", pady=20)
         
-        self.btn_actions = self.create_button1(btn_container, lang.gameScreen.actions_button, self.toggle_actions)
+        self.btn_actions = self.create_button1(btn_container, lang.actions_button, self.toggle_actions)
         self.btn_actions.pack(side="left", padx=5)
         
-        self.btn_continue = self.create_button1(btn_container, f"{lang.gameScreen.continue_button}", self.next_round)
+        self.btn_continue = self.create_button1(btn_container, f"{lang.continue_button}", self.next_round)
         self.btn_continue.pack(side="left", padx=5)
     
     
@@ -150,7 +154,8 @@ class GameFrame(StyledFrame):
         self.btn_actions.config(state="disabled")
         self.toggle_actions()
         
-        self.battle_log.config(text=f"{lang.gameScreen.player_action}: {player_pkm.moveset[action].name}")
+        # [Jugador] usó: [Movimiento]
+        self.battle_log.config(text=f"{player.name} {lang.pkm_action} {player_pkm.moveset[action].name}")
         
         result = None
         if player_pkm.moveset[action].type == "ATK":
@@ -163,16 +168,21 @@ class GameFrame(StyledFrame):
             self.after(75, animate_atk_1)
             
             result = rival_pkm.takeDamage(player_pkm.moveset[action].power, player_pkm.moveset[action].accuracy, player_pkm.current_attack)
+            
             if result > 0:
-                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_attack[0]} {player_pkm.name} {lang.gameScreen.player_pkm_attack[1]} {result} {lang.gameScreen.player_pkm_attack[2]}")
+                # Tu [Pokemon] hizo [Daño] de daño.
+                self.battle_log2.config(text=f"{lang.player_pref} {player_pkm.name} {lang.pkm_attack[0]} {result} {lang.pkm_attack[1]}")
             else:
                 
                 if result == 0:
-                    result = lang.gameScreen.pkm_defend
+                    # se defendió del ataque.
+                    result = lang.pkm_defend
                 else:
-                    result = lang.gameScreen.pkm_avoid
+                    # esquivó el ataque.
+                    result = lang.pkm_avoid
                 
-                self.battle_log2.config(text=f"{lang.gameScreen.rival_pkm_avoid[0]} {rival_pkm.name} {lang.gameScreen.rival_pkm_avoid[1]} {result}")
+                # Pero el [Pokemon] rival [esquivó/se defendió, del ataque]
+                self.battle_log2.config(text=f"{lang.pkm_action_fail} {lang.rival_pref.lower()} {rival_pkm.name} {lang.rival_name} {result}")
         else:
             def animate_act_1():
                 original_x = self.p1_pokemon_img_label.winfo_x()
@@ -181,16 +191,24 @@ class GameFrame(StyledFrame):
                 self.after(300, lambda: self.p1_pokemon_img_label.place(x=original_x,y=original_y))
         
             self.after(75, animate_act_1)
+            
+            
             typeName = ""
             if player_pkm.moveset[action].type == "DMG":
-                typeName = lang.gameScreen.stat_dmg
+                typeName = lang.stat_dmg # daño
             else:
-                typeName = lang.gameScreen.stat_def
+                typeName = lang.stat_def # defensa
+                
             result = player_pkm.takeStat(player_pkm.moveset[action].type, player_pkm.moveset[action].power)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat[0]} {player_pkm.name} {lang.gameScreen.player_pkm_stat[1]} {typeName} {lang.gameScreen.player_pkm_stat[2]} {result}")
+            
+            if result > 0:
+                
+                # Tu [Pokemon del jugador] aumentó su [estadística] en [valor].
+                self.battle_log2.config(text=f"{lang.player_pref} {player_pkm.name} {lang.pkm_stat[0]} {typeName} {lang.pkm_stat[1]} {result}")
             else:
-                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat_none} {result}")
+                
+                # Pero su [estadística] no subió más.
+                self.battle_log2.config(text=f"{lang.pkm_stat_fail[0]} {typeName} {lang.pkm_stat_fail[1]}")
                 
         self.update_stats()
             
@@ -202,8 +220,12 @@ class GameFrame(StyledFrame):
                 self.controller.show_frame("ResultsFrame")
                 return
             
-            self.battle_log.config(text=f"{lang.gameScreen.player_win[0]} {rival_pkm.name} {lang.gameScreen.player_win[1]}")
-            self.battle_log2.config(text=f"{lang.gameScreen.player_win_pkm[0]} {rival_pkm.name} {lang.gameScreen.player_win_pkm[1]}")
+            
+            # Has derrotado al [Pokemon] rival
+            self.battle_log.config(text=f"{lang.player_win[0]} {rival_pkm.name} {lang.player_win[1]}")
+            
+            # Ahora tienes a [Pokemon] en tu equipo.
+            self.battle_log2.config(text=f"{lang.player_win_pkm[0]} {rival_pkm.name} {lang.player_win_pkm[1]}")
             
             self.hide(self.btn_actions)
             self.show(self.btn_continue)
@@ -212,7 +234,7 @@ class GameFrame(StyledFrame):
     
         
         self.after(3000, lambda: (
-            self.battle_log.config(text=lang.gameScreen.rival_thinking),
+            self.battle_log.config(text=lang.rival_thinking),
             self.battle_log2.config(text=""),
             self.after(random.randint(1500, 3000), lambda: self.rival_action())
         ))
@@ -226,7 +248,9 @@ class GameFrame(StyledFrame):
         rival_pkm = rival.getCurrentPokemon()
         
         action = rival_pkm.moveset[random.randint(0, len(rival_pkm.moveset) - 1)]
-        self.battle_log.config(text=f" {action.name}")
+        
+        # El rival usó: [Movimiento]
+        self.battle_log.config(text=f"{lang.rival_pref} {lang.rival_name} {lang.pkm_action} {action.name}")
         
         result = None
         if action.type == "ATK":
@@ -239,14 +263,19 @@ class GameFrame(StyledFrame):
             
             result = player_pkm.takeDamage(action.power, action.accuracy, rival_pkm.current_attack)
             if result > 0:
-                self.battle_log2.config(text=f"{lang.gameScreen.rival_pkm_attack[0]} {rival_pkm.name} {lang.gameScreen.rival_pkm_attack[1]} {result} {lang.gameScreen.rival_pkm_attack[2]}")
+                
+                # El [Pokemon] rival hizo [Daño] de daño.
+                self.battle_log2.config(text=f"{lang.rival_pref} {rival_pkm.name} {lang.rival_name} {lang.pkm_attack[0]} {result} {lang.pkm_attack[1]}")
             else:
                 if result == 0:
-                    result = lang.gameScreen.pkm_defend
+                    # se defendió del ataque.
+                    result = lang.pkm_defend
                 else:
-                    result = lang.gameScreen.pkm_avoid
+                    # esquivó el ataque.
+                    result = lang.pkm_avoid
                     
-                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_avoid} {player_pkm.name} {result}")
+                # Pero tu [Pokemon] rival [esquivó/se defendió, del ataque]
+                self.battle_log2.config(text=f"{lang.pkm_action_fail} {lang.player_pref.lower()} {player_pkm.name} {result}")
         else:
             def animate_act_2():
                 original_x = self.p2_pokemon_img_label.winfo_x()
@@ -256,11 +285,20 @@ class GameFrame(StyledFrame):
         
             self.after(75, animate_act_2)
             
-            result = rival_pkm.takeStat(action.type, action.power)
-            if isinstance(result, int):
-                self.battle_log2.config(text=f"{rival_pkm.name} {lang.gameScreen.player_pkm_stat[1]} {action.type} {lang.gameScreen.player_pkm_stat[2]} {result}.")
+            typeName = ""
+            if action.type == "DMG":
+                typeName = lang.stat_dmg
             else:
-                self.battle_log2.config(text=f"{lang.gameScreen.player_pkm_stat_none} {result}")
+                typeName = lang.stat_def
+            
+            result = rival_pkm.takeStat(action.type, action.power)
+            if result > 0:
+                
+                 # El [Pokemon] rival aumentó su [estadística] en [valor].
+                self.battle_log2.config(text=f"{lang.rival_pref} {rival_pkm.name} {lang.rival_name} {lang.pkm_stat[0]} {typeName} {lang.pkm_stat[1]} {result}")
+            else:
+                # Pero su [estadística] no subió más.
+                self.battle_log2.config(text=f"{lang.pkm_stat_fail[0]} {result} {lang.pkm_stat_fail[1]}")
         
         self.update_stats()
         
@@ -274,27 +312,30 @@ class GameFrame(StyledFrame):
                 return
             
             
-            self.battle_log.config(text=lang.gameScreen.rival_win)
-            self.battle_log2.config(text=f"{lang.gameScreen.rival_win_pkm[0]} {player_pkm.name} {lang.gameScreen.rival_win_pkm[1]}")
+            # Has sido derrotado por tu rival
+            self.battle_log.config(text=lang.rival_win)
+            
+            # Te han quitado a [Pokemon] de tu equipo.
+            self.battle_log2.config(text=f"{lang.rival_win_pkm[0]} {player_pkm.name} {lang.rival_win_pkm[1]}")
             
             self.hide(self.btn_actions)
             self.show(self.btn_continue)
             return
         
         self.after(3000, lambda: (
-            self.battle_log.config(text=lang.gameScreen.default_action_turn),
+            self.battle_log.config(text=lang.default_action_turn),
             self.battle_log2.config(text=""),
             self.btn_actions.config(state="normal")
         ))
     
     
     def update_stats(self):
-        self.p1_health.config(text=f"{lang.gameScreen.health_label}: {self.controller.player.getCurrentPokemon().current_hp}/{self.controller.player.getCurrentPokemon().hp}")
-        self.p2_health.config(text=f"{lang.gameScreen.health_label}: {self.controller.rival.getCurrentPokemon().current_hp}/{self.controller.rival.getCurrentPokemon().hp}")
+        self.p1_health.config(text=f"{lang.health_label}: {self.controller.player.getCurrentPokemon().current_hp}/{self.controller.player.getCurrentPokemon().hp}")
+        self.p2_health.config(text=f"{lang.health_label}: {self.controller.rival.getCurrentPokemon().current_hp}/{self.controller.rival.getCurrentPokemon().hp}")
     
     def update_display(self):
         self.btn_actions.config(state="normal")
-        self.battle_log.config(text=lang.gameScreen.default_action_turn)
+        self.battle_log.config(text=lang.default_action_turn)
         self.battle_log2.config(text="")
         
         self.show(self.btn_actions)
@@ -303,7 +344,7 @@ class GameFrame(StyledFrame):
         player = self.controller.player
         current_pokemon = self.controller.player.getCurrentPokemon()
         
-        self.p1_title.config(text=f"{lang.gameScreen.player_label}: {player.getName()}")
+        self.p1_title.config(text=f"{lang.player_label}: {player.getName()}")
         
         self.p1_img = tk.PhotoImage(file=player.getAvatar()).subsample(2, 2)
         self.p1_img_label.config(image=self.p1_img)
@@ -311,13 +352,13 @@ class GameFrame(StyledFrame):
         self.p1_pokemon_img = tk.PhotoImage(file=current_pokemon.img).subsample(2, 2)
         self.p1_pokemon_img_label.config(image=self.p1_pokemon_img)
         
-        self.p1_pokemon.config(text=f"{lang.gameScreen.pokemon_label}: {current_pokemon.name}")
-        self.p1_health.config(text=f"{lang.gameScreen.health_label}: {current_pokemon.current_hp}/{current_pokemon.hp}")
+        self.p1_pokemon.config(text=f"{lang.pokemon_label}: {current_pokemon.name}")
+        self.p1_health.config(text=f"{lang.health_label}: {current_pokemon.current_hp}/{current_pokemon.hp}")
         
         rival = self.controller.rival
         current_rival_pokemon = self.controller.rival.getCurrentPokemon()
         
-        self.p2_title.config(text=f"{lang.gameScreen.player_label}: {rival.getName()}")
+        self.p2_title.config(text=f"{lang.player_label}: {rival.getName()}")
         
         self.p2_img = tk.PhotoImage(file=rival.getAvatar()).subsample(2, 2)
         self.p2_img_label.config(image=self.p2_img)
@@ -325,8 +366,8 @@ class GameFrame(StyledFrame):
         self.p2_pokemon_img = tk.PhotoImage(file=current_rival_pokemon.img).subsample(2, 2)
         self.p2_pokemon_img_label.config(image=self.p2_pokemon_img)
         
-        self.p2_pokemon.config(text=f"{lang.gameScreen.pokemon_label}: {current_rival_pokemon.name}")
-        self.p2_health.config(text=f"{lang.gameScreen.health_label}: {current_rival_pokemon.current_hp}/{current_rival_pokemon.hp}")
+        self.p2_pokemon.config(text=f"{lang.pokemon_label}: {current_rival_pokemon.name}")
+        self.p2_health.config(text=f"{lang.health_label}: {current_rival_pokemon.current_hp}/{current_rival_pokemon.hp}")
         
         
         self.actionBtn1.config(text=f"A: {self.controller.player.getCurrentPokemon().moveset[0].name}")

@@ -7,7 +7,7 @@ from assets.classes import StyledFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().resultsScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -29,26 +29,26 @@ class ResultsFrame(StyledFrame):
         body.pack(fill="both", expand=True, pady=40, padx=20)
 
         # Resultado
-        self.result_title = self.create_title(body, lang.resultsScreen.title)
-        self.result_title.pack(pady=30)
+        self.result_title = self.create_title(body, lang.title)
+        self.result_title.pack(pady=5)
 
         result_body = tk.Frame(body, bg=style.colors["default"])
         result_body.pack(fill="both", expand=True)
 
         center_panel = tk.Frame(result_body, bg=style.colors["default"])
-        center_panel.pack(fill="both", expand=True, padx=20, pady=10)
+        center_panel.pack(fill="both", expand=True, padx=20, pady=5)
 
         self.player_img = tk.PhotoImage(file="assets/img/char_01.png").subsample(2, 2)
         self.player_img_label = tk.Label(center_panel, image=self.player_img, bg=style.colors["default"])
         self.player_img_label.pack(pady=10)
 
-        self.player_name_label = self.create_text1(center_panel, f"{lang.gameScreen.player_label}: {lang.resultsScreen.player}", 0, 5, 250)
+        self.player_name_label = self.create_text1(center_panel, f"{lang.player_label}: {lang.default}", 0, 5, 250)
         self.player_name_label.pack(pady=3)
         
-        self.player_score_label = self.create_text1(center_panel, f"{lang.resultsScreen.score_label} 0", 0, 1, 250)
+        self.player_score_label = self.create_text1(center_panel, f"{lang.score_label} 0", 0, 1, 250)
         self.player_score_label.pack(pady=1)
         
-        self.player_team_label = self.create_text2(center_panel, f"{lang.hallOfFameScreen.team_column}: ---", 0, 5, 250)
+        self.player_team_label = self.create_text2(center_panel, f"{lang.team_label}: {lang.default}", 0, 5, 250)
         self.player_team_label.pack(pady=5)
 
         self.result_description = self.create_text2(center_panel, "", 10, 1, 500, "center")
@@ -57,13 +57,13 @@ class ResultsFrame(StyledFrame):
         btn_container = tk.Frame(body, bg=style.colors["default"])
         btn_container.pack(side="bottom", pady=20)
 
-        self.create_button1(btn_container, lang.resultsScreen.exit_button, lambda: controller.show_frame("IntroFrame")).pack(side="left", padx=5)
-        self.create_button1(btn_container, lang.resultsScreen.hall_of_fame_button, lambda: controller.show_frame("HallOfFameFrame")).pack(side="left", padx=5)
+        self.create_button1(btn_container, lang.exit_button, lambda: controller.show_frame("IntroFrame")).pack(side="left", padx=5)
+        self.create_button1(btn_container, lang.hall_of_fame_button, lambda: controller.show_frame("HallOfFameFrame")).pack(side="left", padx=5)
 
     def update_display(self):
         player = self.controller.player
         player_avatar = player.getAvatar() or "assets/img/char_01.png"
-        player_name = player.getName() or lang.resultsScreen.player
+        player_name = player.getName() or lang.player_label
         player_score = player.getScore()
         player_team = player.getTeam()
 
@@ -77,19 +77,19 @@ class ResultsFrame(StyledFrame):
         self.player_img_label.image = self.player_img
 
         if player_team == []:
-            self.result_title.config(text=lang.resultsScreen.defeat)
+            self.result_title.config(text=lang.defeat)
             self.banner.config(bg=style.colors["results_bg_loss"])
-            description = lang.resultsScreen.defeat_msg
+            description = lang.defeat_msg
         else:
-            self.result_title.config(text=lang.resultsScreen.victory)
+            self.result_title.config(text=lang.victory)
             self.banner.config(bg=style.colors["results_bg_win"])
-            description = lang.resultsScreen.victory_msg
+            description = lang.victory_msg
             self.save_top_record(player)
 
-        team_names = ", ".join([pokemon.name for pokemon in player_team]) if player_team else "---"
-        self.player_name_label.config(text=f"{lang.gameScreen.player_label}: {player_name}")
-        self.player_score_label.config(text=f"{lang.resultsScreen.score_label} {player_score}")
-        self.player_team_label.config(text=f"{lang.hallOfFameScreen.team_column}: {team_names}")
+        team_names = ", ".join([pokemon.name for pokemon in player_team]) if player_team else lang.default
+        self.player_name_label.config(text=f"{lang.player_label}: {player_name}")
+        self.player_score_label.config(text=f"{lang.score_label} {player_score}")
+        self.player_team_label.config(text=f"{lang.team_label}: {team_names}")
         self.result_description.config(text=description)
 
     def load_top_records(self):

@@ -4,7 +4,7 @@ from assets.classes import StyledFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().titleScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -32,10 +32,10 @@ class IntroFrame(StyledFrame):
         left.grid(row=0, column=0, sticky="nsew")
         
         # Título
-        self.create_title(left, lang.titleScreen.title).pack()
+        self.create_title(left, lang.title).pack()
         
         # Descripción
-        self.create_text1(left, lang.titleScreen.description,55, 5, 500).pack(side="top",pady=(0, 20))
+        self.create_text1(left, lang.description,55, 5, 500).pack(side="top",pady=(0, 20))
         
         # Imagen
         self.demo_img = tk.PhotoImage(
@@ -59,15 +59,15 @@ class IntroFrame(StyledFrame):
         right.grid(row=0, column=1, sticky="nsew")
         
         # Subtítulo
-        self.create_title(right, lang.titleScreen.subtitle).pack()
+        self.create_title(right, lang.subtitle).pack()
         
         # Instrucciones
-        self.create_text2(right, lang.titleScreen.instructions,10, 5, 800, "center").pack()
+        self.create_text2(right, lang.instructions,10, 5, 800, "center").pack()
 
         btn_container = tk.Frame(self, bg=style.colors["default"])
         btn_container.pack(side="bottom", fill="x", pady=20)
         
         btn_group = tk.Frame(btn_container, width=200, bg=style.colors["default"])
         btn_group.pack(side="bottom", padx=5)
-        self.create_button1(btn_group,lang.titleScreen.play_button, lambda: controller.show_frame("LobbyFrame")).pack(side="left", padx=5)
-        self.create_button1(btn_group,lang.titleScreen.halloffame_button, lambda: controller.show_frame("HallOfFameFrame")).pack(side="right", padx=5)
+        self.create_button1(btn_group,lang.play_button, lambda: controller.show_frame("LobbyFrame")).pack(side="left", padx=5)
+        self.create_button1(btn_group,lang.halloffame_button, lambda: controller.show_frame("HallOfFameFrame")).pack(side="right", padx=5)

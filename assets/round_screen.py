@@ -6,7 +6,7 @@ from assets.classes import StyledFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().roundScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -30,11 +30,11 @@ class RoundFrame(StyledFrame):
         body.pack(pady=20, padx=20)
         
         # Título
-        self.round_title = self.create_title(body, lang.roundScreen.title)
+        self.round_title = self.create_title(body, lang.title)
         self.round_title.pack(pady=10)
         
         # Descripción
-        self.create_text1(body, lang.roundScreen.description, 10, 5, 600).pack(pady=10)
+        self.create_text1(body, lang.description, 10, 5, 600).pack(pady=10)
         
         leftGroup = tk.Frame(body, bg=style.colors["default"])
         leftGroup.pack(side="left", padx=10)
@@ -47,10 +47,10 @@ class RoundFrame(StyledFrame):
         self.player_img_label = tk.Label(leftGroup, image=self.player_img, bg=style.colors["default"])
         self.player_img_label.pack(pady=5)
         
-        self.player_name_label = self.create_text1(leftGroup, f"{lang.gameScreen.player_label}: {lang.roundScreen.default}", 0, 5, 400)
+        self.player_name_label = self.create_text1(leftGroup, f"{lang.player_label}: {lang.default}", 0, 5, 400)
         self.player_name_label.pack(pady=5)
         
-        self.player_score_label = self.create_text1(leftGroup, f"Puntaje: {lang.roundScreen.default}", 0, 5, 400)
+        self.player_score_label = self.create_text1(leftGroup, f"{lang.score_label}: {lang.default}", 0, 5, 400)
         self.player_score_label.pack(pady=5)
         
         self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
@@ -66,7 +66,7 @@ class RoundFrame(StyledFrame):
         btn_frame = tk.Frame(self, bg=style.colors["default"])
         btn_frame.pack(pady=20)
         
-        self.create_button1(btn_frame, lang.roundScreen.continue_button, self.continue_round).pack(padx=5)
+        self.create_button1(btn_frame, lang.continue_button, self.continue_round).pack(padx=5)
         
         # Error message
         self.error_txt = self.create_text1(self, "", 10, 5, 600)
@@ -75,7 +75,7 @@ class RoundFrame(StyledFrame):
         selected = self.pokemon_combo.get()
         
         if selected == "":
-            self.error_txt.config(text=lang.roundScreen.error_select)
+            self.error_txt.config(text=lang.error_select)
             self.show(self.error_txt)
             return
         
@@ -102,8 +102,8 @@ class RoundFrame(StyledFrame):
         self.player_img = tk.PhotoImage(file=player.getAvatar()).subsample(2, 2)
         self.player_img_label.config(image=self.player_img)
         
-        self.player_name_label.config(text=f"{lang.gameScreen.player_label}: {player.getName()}")
-        self.player_score_label.config(text=f"{lang.roundScreen.score_label} {player.getScore()}")
+        self.player_name_label.config(text=f"{lang.player_label}: {player.getName()}")
+        self.player_score_label.config(text=f"{lang.score_label}: {player.getScore()}")
         
         self.pokemon_combo.set("")
         self.pokemon_img = tk.PhotoImage(file="assets/img/pkm0.png").subsample(2, 2)
@@ -113,7 +113,7 @@ class RoundFrame(StyledFrame):
         
         teamNames = [pokemon.name for pokemon in team]
         self.pokemon_combo.config(values=teamNames)
-        self.round_title.config(text=f"{lang.roundScreen.title} {self.controller.round_number}")
+        self.round_title.config(text=f"{lang.title} {self.controller.round_number}")
         
         for pokemon in self.controller.player.team:
                 pokemon.current_hp = pokemon.hp

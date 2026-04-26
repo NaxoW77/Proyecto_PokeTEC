@@ -1,23 +1,47 @@
+# --- Archivo de idiomas ---
+# Aquí se guardan todos los textos del juego para
+# poder utilizarlos en cualquier parte del proyecto
+
+
+# Se define la clase principal
+# Por cada clase hay una subclase para cada pantalla
 class Lang:
+    
+    # Textos principales
     def __init__(self):
-        self.title = "PokéTEC"
+        self.title = "PokéTEC" # Título principal del proyecto
+        
+        # Llamada a subclases
         self.titleScreen = Lang.TitleScreen(self)
         self.lobbyScreen = Lang.LobbyScreen(self)
         self.roundScreen = Lang.RoundScreen(self)
         self.gameScreen = Lang.GameScreen(self)
         self.resultsScreen = Lang.ResultsScreen(self)
         self.hallOfFameScreen = Lang.HallOfFameScreen(self)
+        
+        # Footer principal del proyecto
         self.copyright = "Copyright © 2026 Ignacio Apuy."
+        
+        # Mensaje en blanco
+        self.default = "---"
     
+    
+    # Subclase para la pantalla de título
     class TitleScreen:
         def __init__(self, super):
+            
+            # Títulos
             self.title = "Bienvenido"
             self.description = self.concat(
                 f"{super.title} es un proyecto basado en el videojuego Pokemon.",
                 "\nEl objetivo de este proyecto es recrear el juego en Python utilizando Tkinter.",
             )
             
+            # Subtítulos
             self.subtitle = "Instrucciones:"
+            
+            # Sección de instrucciones
+            # Concat() se utiliza para unir los textos por línea
             self.instructions = self.concat(
                 "1. Para jugar, presiona el botón de \"Jugar\" abajo.",
                 "\n2. Una vez en el lobby, escribe tu nombre, selecciona tu avatar, y escoge a tu equipo.",
@@ -30,92 +54,141 @@ class Lang:
                 "\nPiensa bien tus movimientos en combate, planea tu estrategia y toma decisiones inteligentes para ganar.",
             )
             
+            # Sección de botones
             self.play_button = "Jugar"
             self.halloffame_button = "Salón de la fama"
             
-        # Función para concatenar texto
+            # Mensaje en blanco
+            self.default = "---"
+            
+            
+        
+        # Función para concatenar texto por líneas
         def concat(self, *args):
             return "\n".join(args)
     
+    
+    # Subclase para la pantalla del lobby
     class LobbyScreen:
         def __init__(self, super):
+            
+            # Títulos
             self.title = "Bienvenido al Lobby"
             self.description = "Aquí puedes configurar tu nombre, avatar y seleccionar tu equipo inicial.\nEscribe tu nombre acá y dale a siguiente."
-            self.name_label = "Nombre:"
+            
+            # Sección del nombre
+            self.name_label = "Nombre"
             self.next_button = "Siguiente"
+            
+            # Sección del avatar
             self.avatar_title = "Avatar"
             self.avatar_description = "Selecciona tu avatar."
-            self.avatar_back = "◀"
-            self.avatar_next = "▶"
+            self.avatar_back = "◀" # Botones
+            self.avatar_next = "▶" # Botones
+            
+            # Sección del equipo
             self.team_title = "Equipo"
             self.team_description = "Selecciona tu equipo."
             
+            # Mensajes de error
             self.error_empty_name = "Debes escribir tu nombre."
             self.error_name_too_short = "El nombre debe tener al menos 3 caracteres."
             self.error_name_too_long = "El nombre debe tener menos de 15 caracteres."
             self.error_select_pokemon = "Debes seleccionar 3 pokemon."
             self.error_duplicate_pokemon = "Los pokemon deben ser distintos."
-    
-    class RoundScreen:
-        def __init__(self, super):
-            self.title = "Ronda"
-            self.description = "Elige con cuál Pokémon quieres pelear esta ronda."
-            self.select_pokemon = "Selecciona tu pokemon"
-            self.continue_button = "Continuar"
-            self.error_select = "Debes seleccionar un Pokémon."
-            self.score_label = "Puntaje:"
+            
+            # Mensaje en blanco
             self.default = "---"
     
     
+    # Subclase para la pantalla de rondas
+    class RoundScreen:
+        def __init__(self, super):
+            
+            # Título
+            self.title = "Ronda"
+            self.description = "Elige con cuál Pokémon quieres pelear esta ronda."
+            
+            # Etiquetas
+            self.player_label = "Jugador"
+            self.score_label = "Puntaje"
+            
+            # Sección de selección
+            self.select_pokemon = "Selecciona tu pokemon"
+            self.continue_button = "Continuar"
+            
+            # Mensajes de error
+            self.error_select = "Debes seleccionar un Pokémon."
+            
+            # Mensaje en blanco
+            self.default = "---"
     
+    
+    # Subclase para la pantalla de combate
     class GameScreen:
         def __init__(self, super):
+            
+            # Título
             self.title = "Combate"
+            
+            # Acciones y botones
             self.actions_prompt = "Escoge un movimiento."
             self.actions_button = "Acciones"
+            self.continue_button = "Continuar"
             
+            # Etiquetas
             self.player_label = "Jugador"
             self.pokemon_label = "Pokémon"
             self.health_label = "Vida"
             
+            # Mensajes por defecto
             self.default_action = "A luchar... \nEscoge una acción abajo."
             self.default_action_turn = "Tu turno...\nSelecciona una acción abajo."
-            self.continue_button = "Continuar"
             
-            self.player_action = "Jugador usó"
-            
-            self.player_pkm_attack = ["Tu", "hizo", "de daño."]
-            self.rival_pkm_avoid = ["Pero el", "rival"]
-            
+            # Nombres de movimientos
             self.stat_dmg = "daño"
             self.stat_def = "defensa"
             
-            self.player_pkm_stat = ["Tu", "aumentó su", "en"]
-            self.player_pkm_stat_none = "Pero"
+            # Resultados de movimientos
+            
+            self.pkm_attack = ["hizo", "de daño."]
+            
+            self.pkm_action = "usó:"
+            self.pkm_action_fail = "Pero"
+            
+            self.pkm_stat = ["aumentó su", "en"]
+            self.pkm_stat_fail = ["Pero su", "no subió más."]
             
             self.pkm_avoid = "esquivó el ataque."
             self.pkm_defend = "se defendió del ataque."
             
+            # -- Jugador
+            self.player_pref = "Tu"
+            
+            # -- Rival
+            self.rival_pref = "El"
+            self.rival_name = "rival"
+            self.rival_thinking = "El rival esta pensando..."
+            
+        
+            # El jugador gana
             self.player_win = ["Has derrotado al", "rival."]
             self.player_win_pkm = ["Ahora tienes a", "en tu equipo."]
             
-            
-            self.rival_thinking = "El rival esta pensando..."
-            
-            self.rival_action = "El rival usó"
-            self.rival_pkm_attack = ["El", "rival hizo", "de daño."]
-            self.player_pkm_avoid = "Pero tu"
-            
+            # El rival gana
             self.rival_win = "Has sido derrotado por tu rival."
             self.rival_win_pkm = ["Te han quitado a", "de tu equipo."]
             
+            # Mensaje en blanco
             self.default = "---"
     
     class ResultsScreen:
         def __init__(self, super):
             self.title = "Resultados"
             
-            self.player = "Jugador"
+            self.player_label = "Jugador"
+            self.score_label = "Puntaje"
+            self.team_label = "Equipo"
             
             self.victory = "¡VICTORIA!"
             self.victory_msg = "¡Felicidades! Tu resultado se guardará en el Salón de la Fama."
@@ -123,19 +196,25 @@ class Lang:
             self.defeat = "¡DERROTA!"
             self.defeat_msg = "Has perdido. Intenta de nuevo para entrar al Salón de la Fama."
             
-            self.score_label = "Puntaje:"
+
             
             self.exit_button = "Salir"
             self.hall_of_fame_button = "Salón de la Fama"
+            
+            # Mensaje en blanco
+            self.default = "---"
     
     class HallOfFameScreen:
         def __init__(self, super):
             self.title = "Salón de la Fama"
             self.player_column = "Jugador"
             
-            self.subtitle = ["Top", "jugadores"]
+            self.subtitle = "Top 10 jugadores"
             
             self.team_column = "Equipo"
             self.score_column = "Puntaje"
             self.back_button = "Volver"
             self.no_records = "No hay registros aún."
+            
+            # Mensaje en blanco
+            self.default = "---"

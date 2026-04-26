@@ -6,7 +6,7 @@ from assets.classes import StyledFrame
 
 # Importar textos
 from assets.lang import Lang
-lang = Lang()
+lang = Lang().lobbyScreen
 
 # Importar estilos
 from assets.styles import Style
@@ -37,16 +37,16 @@ class LobbyFrame(StyledFrame):
         left.grid(row=0, column=0, sticky="nsew")
         
         # Título
-        self.create_title(left, lang.lobbyScreen.title).pack(pady=10)
-        self.create_text1(left, lang.lobbyScreen.description, 10, 5, 400).pack(pady=10)
+        self.create_title(left, lang.title).pack(pady=10)
+        self.create_text1(left, lang.description, 10, 5, 400).pack(pady=10)
         
         form_name = tk.Frame(left, bg=style.colors["default"])
         form_name.pack(pady=20)
         
-        tk.Label(form_name, text=lang.lobbyScreen.name_label, bg=style.colors["default"], font=style.a14).grid(row=0, column=0, padx=5, pady=5, sticky="e")
+        tk.Label(form_name, text=f"{lang.name_label}:", bg=style.colors["default"], font=style.a14).grid(row=0, column=0, padx=5, pady=5, sticky="e")
         self.name_entry = tk.Entry(form_name, font=style.a14)
         
-        self.name_next_btn = self.create_button1(left, lang.lobbyScreen.next_button, self.checkName)
+        self.name_next_btn = self.create_button1(left, lang.next_button, self.checkName)
         self.name_next_btn.pack(pady=10)
         
         self.name_error_txt = self.create_text1(left, "", 10, 5, 400)
@@ -63,8 +63,8 @@ class LobbyFrame(StyledFrame):
         
         self.form_avatar = tk.Frame(middle, bg=style.colors["default"])
         
-        self.create_title(self.form_avatar, lang.lobbyScreen.avatar_title).pack(pady=10)
-        self.create_text1(self.form_avatar, lang.lobbyScreen.avatar_description, 10, 5, 400).pack(pady=10)
+        self.create_title(self.form_avatar, lang.avatar_title).pack(pady=10)
+        self.create_text1(self.form_avatar, lang.avatar_description, 10, 5, 400).pack(pady=10)
         
         self.avatar_img = tk.PhotoImage(master=self.form_avatar, file="assets/img/char_01.png")
         self.avatar_img_label = tk.Label(self.form_avatar, image=self.avatar_img, bg=style.colors["default"])
@@ -73,12 +73,12 @@ class LobbyFrame(StyledFrame):
         avatar_btn_group = tk.Frame(self.form_avatar, bg=style.colors["default"])
         avatar_btn_group.pack()
         
-        self.imgBackBtn = self.create_button1(avatar_btn_group, lang.lobbyScreen.avatar_back, self.backAvatar)
+        self.imgBackBtn = self.create_button1(avatar_btn_group, lang.avatar_back, self.backAvatar)
         self.imgBackBtn.pack(pady=10, padx=5, side="left")
-        self.imgNextBtn = self.create_button1(avatar_btn_group, lang.lobbyScreen.avatar_next, self.nextAvatar)
+        self.imgNextBtn = self.create_button1(avatar_btn_group, lang.avatar_next, self.nextAvatar)
         self.imgNextBtn.pack(pady=10, padx=5, side="right")
         
-        self.avatar_next_btn = self.create_button1(self.form_avatar, lang.lobbyScreen.next_button, self.checkAvatar)
+        self.avatar_next_btn = self.create_button1(self.form_avatar, lang.next_button, self.checkAvatar)
         self.avatar_next_btn.pack(pady=10)
         
         
@@ -92,8 +92,8 @@ class LobbyFrame(StyledFrame):
         
         self.form_team = tk.Frame(right, bg=style.colors["default"])
         
-        self.create_title(self.form_team, lang.lobbyScreen.team_title).pack(pady=10)
-        self.create_text1(self.form_team, lang.lobbyScreen.team_description, 10, 5, 400).pack(pady=10)
+        self.create_title(self.form_team, lang.team_title).pack(pady=10)
+        self.create_text1(self.form_team, lang.team_description, 10, 5, 400).pack(pady=10)
         
         team_row1 = tk.Frame(self.form_team, bg=style.colors["default"])
         team_row1.pack()
@@ -136,7 +136,7 @@ class LobbyFrame(StyledFrame):
         self.select_team_3.pack(pady=10, side="top")
         self.select_team_3.bind("<<ComboboxSelected>>", lambda e: self.checkSelection(self.select_team_3, self.img_team_3_label))
         
-        self.team_next_btn = self.create_button1 (self.form_team, lang.lobbyScreen.next_button, self.checkTeam)
+        self.team_next_btn = self.create_button1 (self.form_team, lang.next_button, self.checkTeam)
         self.team_next_btn.pack(pady=10)
         
         self.team_error_txt = self.create_text1(self.form_team, "", 10, 5, 400)
@@ -146,15 +146,15 @@ class LobbyFrame(StyledFrame):
     def checkName(self):
         name = self.name_entry.get()
         if name == "":
-            self.name_error_txt.config(text=lang.lobbyScreen.error_empty_name)
+            self.name_error_txt.config(text=lang.error_empty_name)
             self.show(self.name_error_txt)
             return
         elif len(name) < 3:
-            self.name_error_txt.config(text=lang.lobbyScreen.error_name_too_short)
+            self.name_error_txt.config(text=lang.error_name_too_short)
             self.show(self.name_error_txt)
             return
         elif len(name) > 15:
-            self.name_error_txt.config(text=lang.lobbyScreen.error_name_too_long)
+            self.name_error_txt.config(text=lang.error_name_too_long)
             self.show(self.name_error_txt)
             return
         
@@ -218,12 +218,12 @@ class LobbyFrame(StyledFrame):
         pokemon3 = self.select_team_3.get()
         
         if pokemon1 == "" or pokemon2 == "" or pokemon3 == "":
-            self.team_error_txt.config(text=lang.lobbyScreen.error_select_pokemon)
+            self.team_error_txt.config(text=lang.error_select_pokemon)
             self.show(self.team_error_txt)
             return
         
         if pokemon1 == pokemon2 or pokemon2 == pokemon3 or pokemon3 == pokemon1:
-            self.team_error_txt.config(text=lang.lobbyScreen.error_duplicate_pokemon)
+            self.team_error_txt.config(text=lang.error_duplicate_pokemon)
             self.show(self.team_error_txt)
             return
         

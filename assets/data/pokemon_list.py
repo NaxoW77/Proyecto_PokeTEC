@@ -1,8 +1,22 @@
+# --- Lista de pokémon ---
+# Estos son los pokemon predefinidos que
+# se pueden seleccionar dentro del juego
+
+
+# Importamos las definiciones de cada objeto
 from assets.classes import Pokemon
 from assets.classes import Ataque
 
+
+# Creamos una clase que contenga todos los Pokémon
+
+# Las estadísticas y nombres de movimientos no se basan en el juego real
+# Por ejemplo "Mismo destino" de gengar se utiliza únicamente para aumentar defensa
+
 class PokemonList:
     def __init__(self):
+        
+        # Primer pokémon
         self.pokemon1 = Pokemon(
             "Snorlax", # Nombre
             120, # Vida
@@ -17,14 +31,14 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Golpe Cuerpo", # Nombre
+                    "Golpe cuerpo", # Nombre
                     "ATK", # Tipo
                     50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Defensa Férrea (+DEF)", # Nombre
+                    "Defensa férrea (+DEF)", # Nombre
                     "DEF", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -40,6 +54,8 @@ class PokemonList:
             "assets/img/pkm1.png" # Imagen
             )
         
+        
+        # Segundo pokémon
         self.pokemon2 = Pokemon(
             "Squirtle", # Nombre
             110, # Vida
@@ -68,7 +84,7 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Foco Energía (+ATK)", # Nombre
+                    "Foco energía (+ATK)", # Nombre
                     "DMG", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -77,6 +93,8 @@ class PokemonList:
             "assets/img/pkm2.png" # Imagen
             )
         
+        
+        # Tercer pokémon
         self.pokemon3 = Pokemon(
             "Bulbasaur", # Nombre
             105, # Vida
@@ -84,14 +102,14 @@ class PokemonList:
             70, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Látigo Cepa", # Nombre
+                    "Látigo cepa", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Rayo Solar", # Nombre
+                    "Rayo solar", # Nombre
                     "ATK", # Tipo
                     50, #Potencia
                     50, # Precisión
@@ -114,6 +132,8 @@ class PokemonList:
             "assets/img/pkm3.png" # Imagen
         )
         
+        
+        # Cuarto pokémon
         self.pokemon4 = Pokemon(
             "Mew", # Nombre
             100, # Vida
@@ -151,6 +171,8 @@ class PokemonList:
             "assets/img/pkm4.png" # Imagen
         )
         
+        
+        # Quinto pokémon
         self.pokemon5 = Pokemon(
             "Eevee", # Nombre
             95, # Vida
@@ -158,7 +180,7 @@ class PokemonList:
             50, # Defensa
             [ # Moveset
                 Ataque( # Ataque 1
-                    "Ataque Rápido", # Nombre
+                    "Ataque rápido", # Nombre
                     "ATK", # Tipo
                     20, # Potencia
                     100, # Precisión
@@ -188,6 +210,8 @@ class PokemonList:
             "assets/img/pkm5.png" # Imagen
         )
         
+        
+        # Sexto pokémon
         self.pokemon6 = Pokemon(
             "Dragonite", # Nombre
             100, # Vida
@@ -209,14 +233,14 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Velo Sagrado (+DEF)", # Nombre
+                    "Velo sagrado (+DEF)", # Nombre
                     "DEF", # Tipo
                     10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Danza Dragón (+ATK)", # Nombre
+                    "Danza dragón (+ATK)", # Nombre
                     "DMG", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -225,6 +249,8 @@ class PokemonList:
             "assets/img/pkm6.png" # Imagen
         )
         
+        
+        # Septimo pokémon
         self.pokemon7 = Pokemon(
             "Pikachu", # Nombre
             90, # Vida
@@ -246,7 +272,7 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Pantalla Luz (+DEF)", # Nombre
+                    "Pantalla luz (+DEF)", # Nombre
                     "DEF", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -262,6 +288,8 @@ class PokemonList:
             "assets/img/pkm7.png" # Imagen
         )
         
+        
+        # Octavo pokémon
         self.pokemon8 = Pokemon(
             "Charizard", # Nombre
             95, # Vida
@@ -283,14 +311,14 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Pantalla Humo (+DEF)", # Nombre
+                    "Pantalla humo (+DEF)", # Nombre
                     "DEF", # Tipo
                     10, # Potencia
                     100, # Precisión
                     ),
                 
                 Ataque(
-                    "Danza Espada (+ATK)", # Nombre
+                    "Danza espada (+ATK)", # Nombre
                     "DMG", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -299,6 +327,8 @@ class PokemonList:
             "assets/img/pkm8.png" # Imagen
         )
         
+        
+        # Noveno pokémon
         self.pokemon9 = Pokemon(
             "Gengar", # Nombre
             85, # Vida
@@ -313,14 +343,14 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Come Sueños", # Nombre
+                    "Come sueños", # Nombre
                     "ATK", # Tipo
                     50, #Potencia
                     50, # Precisión
                     ),
                 
                 Ataque(
-                    "Mismo Destino (+DEF)", # Nombre
+                    "Mismo destino (+DEF)", # Nombre
                     "DEF", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -336,6 +366,8 @@ class PokemonList:
             "assets/img/pkm9.png" # Imagen
         )
         
+        
+        # Decimo pokémon
         self.pokemon10 = Pokemon(
             "Mewtwo", # Nombre
             90, # Vida
@@ -350,7 +382,7 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Onda Mental", # Nombre
+                    "Onda mental", # Nombre
                     "ATK", # Tipo
                     50, #Potencia
                     50, # Precisión
@@ -364,7 +396,7 @@ class PokemonList:
                     ),
                 
                 Ataque(
-                    "Paz Mental (+ATK)", # Nombre
+                    "Paz mental (+ATK)", # Nombre
                     "DMG", # Tipo
                     10, # Potencia
                     100, # Precisión
@@ -373,6 +405,8 @@ class PokemonList:
             "assets/img/pkm10.png" # Imagen
         )
         
+        
+        # Lista de pokémon para fácil acceso
         self.list = [
             self.pokemon1,
             self.pokemon2,
@@ -386,11 +420,15 @@ class PokemonList:
             self.pokemon10
             ]
         
+    
+    # Función getter para obtener un pokémon según su nombre
     def getPokemon(self, name):
         for pokemon in self.list:
             if pokemon.name == name:
                 return pokemon.clone()
         
+        
+    # Función getter para obtener toda la lista de pokemones
     def getNames(self):
         return [
             self.pokemon1.name,
