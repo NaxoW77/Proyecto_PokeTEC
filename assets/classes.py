@@ -165,21 +165,6 @@ class Ataque:
         self.power = power # Poder del movimiento
         self.accuracy = accuracy # Precisión del movimiento
         self.auto = auto # Definimos si el movimiento nos afecta a nosotros o al rival
-        
-        
-    # --- Métodos de prueba
-    # Método para calcular el daño
-    def takeDamage(self, damage):
-        self.hp = max(0, self.hp - damage)
-    
-    # Método para curar
-    def heal(self, amount):
-        self.hp = min(self.current_hp, self.hp + amount)
-    
-    # Método para saber si el pokemon esta vivo
-    def isAlive(self):
-        return self.hp > 0
-
 
 
 # Se define el modelo de pantalla
