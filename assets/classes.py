@@ -164,7 +164,6 @@ class Ataque:
         self.type = type # Tipo del movimiento
         self.power = power # Poder del movimiento
         self.accuracy = accuracy # Precisión del movimiento
-        self.auto = auto # Definimos si el movimiento nos afecta a nosotros o al rival
 
 
 # Se define el modelo de pantalla
