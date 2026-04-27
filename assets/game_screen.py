@@ -546,7 +546,7 @@ class GameFrame(StyledFrame):
             else:
                 
                 # Se muestra: Pero su [estadística] no subió más.
-                self.battle_log2.config(text=f"{lang.pkm_stat_fail[0]} {result} {lang.pkm_stat_fail[1]}")
+                self.battle_log2.config(text=f"{lang.pkm_stat_fail[0]} {typeName} {lang.pkm_stat_fail[1]}")
         
         
         # Se actualizan las estadísticas
